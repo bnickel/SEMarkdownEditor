@@ -1,0 +1,622 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EBC887F71A2D0E6D002777DB /* SEMarkdownEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBC887EB1A2D0E6C002777DB /* SEMarkdownEditor.framework */; };
+		EBC887FE1A2D0E6D002777DB /* SEMarkdownEditorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC887FD1A2D0E6D002777DB /* SEMarkdownEditorTests.m */; };
+		EBC888141A2D1058002777DB /* SEMarkdownTextChunks.h in Headers */ = {isa = PBXBuildFile; fileRef = EBC888101A2D1058002777DB /* SEMarkdownTextChunks.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EBC888151A2D1058002777DB /* SEMarkdownTextChunks.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC888111A2D1058002777DB /* SEMarkdownTextChunks.m */; };
+		EBC888161A2D1058002777DB /* SEMarkdownTextChunks+Transforms.h in Headers */ = {isa = PBXBuildFile; fileRef = EBC888121A2D1058002777DB /* SEMarkdownTextChunks+Transforms.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EBC888171A2D1058002777DB /* SEMarkdownTextChunks+Transforms.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC888131A2D1058002777DB /* SEMarkdownTextChunks+Transforms.m */; };
+		EBC8881B1A2D10A8002777DB /* NSString+SERegularExpressions.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC888191A2D10A8002777DB /* NSString+SERegularExpressions.m */; };
+		EBC888211A2D17A9002777DB /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = EBC888201A2D17A9002777DB /* Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EBC8882B1A2D1CC7002777DB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC8882A1A2D1CC7002777DB /* main.m */; };
+		EBC8882E1A2D1CC7002777DB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC8882D1A2D1CC7002777DB /* AppDelegate.m */; };
+		EBC888311A2D1CC7002777DB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC888301A2D1CC7002777DB /* ViewController.m */; };
+		EBC888341A2D1CC7002777DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBC888321A2D1CC7002777DB /* Main.storyboard */; };
+		EBC888361A2D1CC7002777DB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBC888351A2D1CC7002777DB /* Images.xcassets */; };
+		EBC888391A2D1CC7002777DB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBC888371A2D1CC7002777DB /* LaunchScreen.xib */; };
+		EBC8884E1A2D1E1B002777DB /* NSString+SERegularExpressions.h in Headers */ = {isa = PBXBuildFile; fileRef = EBC888181A2D10A8002777DB /* NSString+SERegularExpressions.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		EBC888511A2D1E94002777DB /* UITextView+SEMarkdownEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = EBC8884F1A2D1E94002777DB /* UITextView+SEMarkdownEditor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EBC888521A2D1E94002777DB /* UITextView+SEMarkdownEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC888501A2D1E94002777DB /* UITextView+SEMarkdownEditor.m */; };
+		EBC888561A2D2DDC002777DB /* SEMarkdownEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBC887EB1A2D0E6C002777DB /* SEMarkdownEditor.framework */; };
+		EBC888581A2E23D5002777DB /* MarkdownToolbar.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBC888571A2E23D5002777DB /* MarkdownToolbar.xib */; };
+		EBC8885A1A2E27C6002777DB /* SEMarkdownEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = EBC888591A2E27C6002777DB /* SEMarkdownEditor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EBC887F81A2D0E6D002777DB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBC887E21A2D0E6C002777DB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EBC887EA1A2D0E6C002777DB;
+			remoteInfo = SEMarkdownEditor;
+		};
+		EBC8884C1A2D1D09002777DB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBC887E21A2D0E6C002777DB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EBC887EA1A2D0E6C002777DB;
+			remoteInfo = SEMarkdownEditor;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EBC887EB1A2D0E6C002777DB /* SEMarkdownEditor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SEMarkdownEditor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBC887EF1A2D0E6C002777DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EBC887F61A2D0E6D002777DB /* SEMarkdownEditorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SEMarkdownEditorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBC887FC1A2D0E6D002777DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EBC887FD1A2D0E6D002777DB /* SEMarkdownEditorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SEMarkdownEditorTests.m; sourceTree = "<group>"; };
+		EBC888101A2D1058002777DB /* SEMarkdownTextChunks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEMarkdownTextChunks.h; path = Core/SEMarkdownTextChunks.h; sourceTree = "<group>"; };
+		EBC888111A2D1058002777DB /* SEMarkdownTextChunks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEMarkdownTextChunks.m; path = Core/SEMarkdownTextChunks.m; sourceTree = "<group>"; };
+		EBC888121A2D1058002777DB /* SEMarkdownTextChunks+Transforms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SEMarkdownTextChunks+Transforms.h"; path = "Core/SEMarkdownTextChunks+Transforms.h"; sourceTree = "<group>"; };
+		EBC888131A2D1058002777DB /* SEMarkdownTextChunks+Transforms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SEMarkdownTextChunks+Transforms.m"; path = "Core/SEMarkdownTextChunks+Transforms.m"; sourceTree = "<group>"; };
+		EBC888181A2D10A8002777DB /* NSString+SERegularExpressions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+SERegularExpressions.h"; path = "Core/NSString+SERegularExpressions.h"; sourceTree = "<group>"; };
+		EBC888191A2D10A8002777DB /* NSString+SERegularExpressions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+SERegularExpressions.m"; path = "Core/NSString+SERegularExpressions.m"; sourceTree = "<group>"; };
+		EBC888201A2D17A9002777DB /* Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Core.h; path = Core/Core.h; sourceTree = "<group>"; };
+		EBC888261A2D1CC7002777DB /* iOS Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBC888291A2D1CC7002777DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EBC8882A1A2D1CC7002777DB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		EBC8882C1A2D1CC7002777DB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		EBC8882D1A2D1CC7002777DB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		EBC8882F1A2D1CC7002777DB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		EBC888301A2D1CC7002777DB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		EBC888331A2D1CC7002777DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EBC888351A2D1CC7002777DB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		EBC888381A2D1CC7002777DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		EBC8884F1A2D1E94002777DB /* UITextView+SEMarkdownEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITextView+SEMarkdownEditor.h"; path = "UIKit/UITextView+SEMarkdownEditor.h"; sourceTree = "<group>"; };
+		EBC888501A2D1E94002777DB /* UITextView+SEMarkdownEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITextView+SEMarkdownEditor.m"; path = "UIKit/UITextView+SEMarkdownEditor.m"; sourceTree = "<group>"; };
+		EBC888571A2E23D5002777DB /* MarkdownToolbar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MarkdownToolbar.xib; sourceTree = "<group>"; };
+		EBC888591A2E27C6002777DB /* SEMarkdownEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEMarkdownEditor.h; path = UIKit/SEMarkdownEditor.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EBC887E71A2D0E6C002777DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EBC887F31A2D0E6D002777DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBC887F71A2D0E6D002777DB /* SEMarkdownEditor.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EBC888231A2D1CC7002777DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBC888561A2D2DDC002777DB /* SEMarkdownEditor.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EBC887E11A2D0E6C002777DB = {
+			isa = PBXGroup;
+			children = (
+				EBC887ED1A2D0E6C002777DB /* SEMarkdownEditor */,
+				EBC887FA1A2D0E6D002777DB /* SEMarkdownEditorTests */,
+				EBC888271A2D1CC7002777DB /* iOS Demo */,
+				EBC887EC1A2D0E6C002777DB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EBC887EC1A2D0E6C002777DB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EBC887EB1A2D0E6C002777DB /* SEMarkdownEditor.framework */,
+				EBC887F61A2D0E6D002777DB /* SEMarkdownEditorTests.xctest */,
+				EBC888261A2D1CC7002777DB /* iOS Demo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EBC887ED1A2D0E6C002777DB /* SEMarkdownEditor */ = {
+			isa = PBXGroup;
+			children = (
+				EBC887EE1A2D0E6C002777DB /* Supporting Files */,
+				EBC8880B1A2D0FD1002777DB /* Core */,
+				EBC8880E1A2D0FEC002777DB /* UIKit */,
+			);
+			path = SEMarkdownEditor;
+			sourceTree = "<group>";
+		};
+		EBC887EE1A2D0E6C002777DB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EBC887EF1A2D0E6C002777DB /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EBC887FA1A2D0E6D002777DB /* SEMarkdownEditorTests */ = {
+			isa = PBXGroup;
+			children = (
+				EBC887FD1A2D0E6D002777DB /* SEMarkdownEditorTests.m */,
+				EBC887FB1A2D0E6D002777DB /* Supporting Files */,
+			);
+			path = SEMarkdownEditorTests;
+			sourceTree = "<group>";
+		};
+		EBC887FB1A2D0E6D002777DB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EBC887FC1A2D0E6D002777DB /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EBC8880B1A2D0FD1002777DB /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				EBC888201A2D17A9002777DB /* Core.h */,
+				EBC888101A2D1058002777DB /* SEMarkdownTextChunks.h */,
+				EBC888111A2D1058002777DB /* SEMarkdownTextChunks.m */,
+				EBC888121A2D1058002777DB /* SEMarkdownTextChunks+Transforms.h */,
+				EBC888131A2D1058002777DB /* SEMarkdownTextChunks+Transforms.m */,
+				EBC888181A2D10A8002777DB /* NSString+SERegularExpressions.h */,
+				EBC888191A2D10A8002777DB /* NSString+SERegularExpressions.m */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		EBC8880E1A2D0FEC002777DB /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				EBC888591A2E27C6002777DB /* SEMarkdownEditor.h */,
+				EBC8884F1A2D1E94002777DB /* UITextView+SEMarkdownEditor.h */,
+				EBC888501A2D1E94002777DB /* UITextView+SEMarkdownEditor.m */,
+			);
+			name = UIKit;
+			sourceTree = "<group>";
+		};
+		EBC888271A2D1CC7002777DB /* iOS Demo */ = {
+			isa = PBXGroup;
+			children = (
+				EBC8882C1A2D1CC7002777DB /* AppDelegate.h */,
+				EBC8882D1A2D1CC7002777DB /* AppDelegate.m */,
+				EBC8882F1A2D1CC7002777DB /* ViewController.h */,
+				EBC888301A2D1CC7002777DB /* ViewController.m */,
+				EBC888321A2D1CC7002777DB /* Main.storyboard */,
+				EBC888571A2E23D5002777DB /* MarkdownToolbar.xib */,
+				EBC888351A2D1CC7002777DB /* Images.xcassets */,
+				EBC888371A2D1CC7002777DB /* LaunchScreen.xib */,
+				EBC888281A2D1CC7002777DB /* Supporting Files */,
+			);
+			path = "iOS Demo";
+			sourceTree = "<group>";
+		};
+		EBC888281A2D1CC7002777DB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EBC888291A2D1CC7002777DB /* Info.plist */,
+				EBC8882A1A2D1CC7002777DB /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		EBC887E81A2D0E6C002777DB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBC888211A2D17A9002777DB /* Core.h in Headers */,
+				EBC888511A2D1E94002777DB /* UITextView+SEMarkdownEditor.h in Headers */,
+				EBC8885A1A2E27C6002777DB /* SEMarkdownEditor.h in Headers */,
+				EBC888141A2D1058002777DB /* SEMarkdownTextChunks.h in Headers */,
+				EBC8884E1A2D1E1B002777DB /* NSString+SERegularExpressions.h in Headers */,
+				EBC888161A2D1058002777DB /* SEMarkdownTextChunks+Transforms.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		EBC887EA1A2D0E6C002777DB /* SEMarkdownEditor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EBC888011A2D0E6D002777DB /* Build configuration list for PBXNativeTarget "SEMarkdownEditor" */;
+			buildPhases = (
+				EBC887E61A2D0E6C002777DB /* Sources */,
+				EBC887E71A2D0E6C002777DB /* Frameworks */,
+				EBC887E81A2D0E6C002777DB /* Headers */,
+				EBC887E91A2D0E6C002777DB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SEMarkdownEditor;
+			productName = SEMarkdownEditor;
+			productReference = EBC887EB1A2D0E6C002777DB /* SEMarkdownEditor.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		EBC887F51A2D0E6D002777DB /* SEMarkdownEditorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EBC888041A2D0E6D002777DB /* Build configuration list for PBXNativeTarget "SEMarkdownEditorTests" */;
+			buildPhases = (
+				EBC887F21A2D0E6D002777DB /* Sources */,
+				EBC887F31A2D0E6D002777DB /* Frameworks */,
+				EBC887F41A2D0E6D002777DB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EBC887F91A2D0E6D002777DB /* PBXTargetDependency */,
+			);
+			name = SEMarkdownEditorTests;
+			productName = SEMarkdownEditorTests;
+			productReference = EBC887F61A2D0E6D002777DB /* SEMarkdownEditorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EBC888251A2D1CC7002777DB /* iOS Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EBC888461A2D1CC7002777DB /* Build configuration list for PBXNativeTarget "iOS Demo" */;
+			buildPhases = (
+				EBC888221A2D1CC7002777DB /* Sources */,
+				EBC888231A2D1CC7002777DB /* Frameworks */,
+				EBC888241A2D1CC7002777DB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EBC8884D1A2D1D09002777DB /* PBXTargetDependency */,
+			);
+			name = "iOS Demo";
+			productName = "iOS Demo";
+			productReference = EBC888261A2D1CC7002777DB /* iOS Demo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EBC887E21A2D0E6C002777DB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Brian Nickel";
+				TargetAttributes = {
+					EBC887EA1A2D0E6C002777DB = {
+						CreatedOnToolsVersion = 6.1;
+					};
+					EBC887F51A2D0E6D002777DB = {
+						CreatedOnToolsVersion = 6.1;
+					};
+					EBC888251A2D1CC7002777DB = {
+						CreatedOnToolsVersion = 6.1;
+					};
+				};
+			};
+			buildConfigurationList = EBC887E51A2D0E6C002777DB /* Build configuration list for PBXProject "SEMarkdownEditor" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EBC887E11A2D0E6C002777DB;
+			productRefGroup = EBC887EC1A2D0E6C002777DB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EBC887EA1A2D0E6C002777DB /* SEMarkdownEditor */,
+				EBC887F51A2D0E6D002777DB /* SEMarkdownEditorTests */,
+				EBC888251A2D1CC7002777DB /* iOS Demo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EBC887E91A2D0E6C002777DB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EBC887F41A2D0E6D002777DB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EBC888241A2D1CC7002777DB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBC888341A2D1CC7002777DB /* Main.storyboard in Resources */,
+				EBC888391A2D1CC7002777DB /* LaunchScreen.xib in Resources */,
+				EBC888581A2E23D5002777DB /* MarkdownToolbar.xib in Resources */,
+				EBC888361A2D1CC7002777DB /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EBC887E61A2D0E6C002777DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBC888521A2D1E94002777DB /* UITextView+SEMarkdownEditor.m in Sources */,
+				EBC8881B1A2D10A8002777DB /* NSString+SERegularExpressions.m in Sources */,
+				EBC888171A2D1058002777DB /* SEMarkdownTextChunks+Transforms.m in Sources */,
+				EBC888151A2D1058002777DB /* SEMarkdownTextChunks.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EBC887F21A2D0E6D002777DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBC887FE1A2D0E6D002777DB /* SEMarkdownEditorTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EBC888221A2D1CC7002777DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBC888311A2D1CC7002777DB /* ViewController.m in Sources */,
+				EBC8882E1A2D1CC7002777DB /* AppDelegate.m in Sources */,
+				EBC8882B1A2D1CC7002777DB /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EBC887F91A2D0E6D002777DB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EBC887EA1A2D0E6C002777DB /* SEMarkdownEditor */;
+			targetProxy = EBC887F81A2D0E6D002777DB /* PBXContainerItemProxy */;
+		};
+		EBC8884D1A2D1D09002777DB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EBC887EA1A2D0E6C002777DB /* SEMarkdownEditor */;
+			targetProxy = EBC8884C1A2D1D09002777DB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EBC888321A2D1CC7002777DB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EBC888331A2D1CC7002777DB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		EBC888371A2D1CC7002777DB /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EBC888381A2D1CC7002777DB /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EBC887FF1A2D0E6D002777DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		EBC888001A2D0E6D002777DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		EBC888021A2D0E6D002777DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = SEMarkdownEditor/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		EBC888031A2D0E6D002777DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = SEMarkdownEditor/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		EBC888051A2D0E6D002777DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SEMarkdownEditorTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		EBC888061A2D0E6D002777DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SEMarkdownEditorTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		EBC888471A2D1CC7002777DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "iOS Demo/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		EBC888481A2D1CC7002777DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "iOS Demo/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EBC887E51A2D0E6C002777DB /* Build configuration list for PBXProject "SEMarkdownEditor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EBC887FF1A2D0E6D002777DB /* Debug */,
+				EBC888001A2D0E6D002777DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EBC888011A2D0E6D002777DB /* Build configuration list for PBXNativeTarget "SEMarkdownEditor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EBC888021A2D0E6D002777DB /* Debug */,
+				EBC888031A2D0E6D002777DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		EBC888041A2D0E6D002777DB /* Build configuration list for PBXNativeTarget "SEMarkdownEditorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EBC888051A2D0E6D002777DB /* Debug */,
+				EBC888061A2D0E6D002777DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		EBC888461A2D1CC7002777DB /* Build configuration list for PBXNativeTarget "iOS Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EBC888471A2D1CC7002777DB /* Debug */,
+				EBC888481A2D1CC7002777DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EBC887E21A2D0E6C002777DB /* Project object */;
+}
