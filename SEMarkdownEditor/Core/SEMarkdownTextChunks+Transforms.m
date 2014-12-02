@@ -213,6 +213,7 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
         [self wrapWithLength:SEMarkdownLineLength - 2];
         self.selection = [self.selection SE_stringByReplacingPattern:@"^" options:NSRegularExpressionAnchorsMatchLines withTemplate:@"> "];
         [self replaceBlanksInTagsUsingBracket:YES];
+        [self skipLinesBack:1 forward:1 findExtraNewlines:NO];
     } else {
         self.selection = [self.selection SE_stringByReplacingPattern:@"^[ ]{0,3}> ?" options:NSRegularExpressionAnchorsMatchLines withTemplate:@""];
         [self unwrap];
