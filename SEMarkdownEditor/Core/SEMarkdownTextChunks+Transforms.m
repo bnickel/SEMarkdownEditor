@@ -339,26 +339,15 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     }
 }
 
-- (void)toggleLinkWithCreationBlock:(void (^)(SEMarkdownTextChunks *(^)(NSString *)))block
+- (BOOL)removeLinkOrImage
 {
-    [self toggleLinkWithCreationBlock:block isImage:NO];
-}
-
-- (void)toggleImageWithCreationBlock:(void (^)(SEMarkdownTextChunks *(^)(NSString *)))block
-{
-    [self toggleLinkWithCreationBlock:block isImage:YES];
-}
-
-- (void)toggleLinkWithCreationBlock:(void (^)(SEMarkdownTextChunks *(^)(NSString *)))block isImage:(BOOL)isImage
-{
-    NSParameterAssert(block);
     [self trimWhitespaceAndRemove:NO];
     [self findLeft:@"\\s*!?\\[" andRightTags:@"\\][ ]?(?:\n[ ]*)?(\\[.*?\\])?"];
     if (self.endTag.length > 1 && self.startTag.length > 0) {
         self.startTag = [self.startTag SE_stringByReplacingFirstOccuranceOfPattern:@"!?\\[" options:0 withTemplate:@""];
         self.endTag = @"";
         [self addLinkDefinition:nil];
-        return;
+        return YES;
     }
     
     self.selection = [NSString stringWithFormat:@"%@%@%@", self.startTag, self.selection, self.endTag];
@@ -367,57 +356,65 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     
     if ([self.selection SE_matchesPattern:@"\n\n" options:0]) {
         [self addLinkDefinition:nil];
+        return YES;
+    }
+    
+    return NO;
+}
+
+- (void)addLink:(NSString *)linkURLAndOptionalTitle
+{
+    [self addLink:linkURLAndOptionalTitle isImage:NO];
+}
+
+- (void)addImage:(NSString *)imageURLAndOptionalTitle
+{
+    [self addLink:imageURLAndOptionalTitle isImage:YES];
+}
+
+- (void)addLink:(NSString *)linkText isImage:(BOOL)isImage
+{
+    if (linkText.length == 0) {
         return;
     }
     
-    SEMarkdownTextChunks *chunks = [self copy];
+    // Fixes common pasting errors.
+    linkText = [linkText SE_stringByReplacingFirstOccuranceOfPattern:@"^http:\\/\\/(http?/ftp):\\/\\/" options:0 withTemplate:@"$1://"];
+    if (![linkText SE_matchesPattern:@"^(?:https?|ftp):\\/\\/" options:0]) {
+        linkText = [@"http://" stringByAppendingString:linkText];
+    }
     
-    block(^SEMarkdownTextChunks *(NSString *linkText) {
-        
-        if (linkText.length == 0) {
-            return chunks;
-        }
-        
-        // Fixes common pasting errors.
-        linkText = [linkText SE_stringByReplacingFirstOccuranceOfPattern:@"^http:\\/\\/(http?/ftp):\\/\\/" options:0 withTemplate:@"$1://"];
-        if (![linkText SE_matchesPattern:@"^(?:https?|ftp):\\/\\/" options:0]) {
-            linkText = [@"http://" stringByAppendingString:linkText];
-        }
-        
-        // (                          $1
-        //     [^\\]                  anything that's not a backslash
-        //     (?:\\\\)*              an even number (this includes zero) of backslashes
-        // )
-        // (?=                        followed by
-        //     [[\]]                  an opening or closing bracket
-        // )
-        //
-        // In other words, a non-escaped bracket. These have to be escaped now to make sure they
-        // don't count as the end of the link or similar.
-        // Note that the actual bracket has to be a lookahead, because (in case of to subsequent brackets),
-        // the bracket in one match may be the "not a backslash" character in the next match, so it
-        // should not be consumed by the first match.
-        // The "prepend a space and finally remove it" steps makes sure there is a "not a backslash" at the
-        // start of the string, so this also works if the selection begins with a bracket. We cannot solve
-        // this by anchoring with ^, because in the case that the selection starts with two brackets, this
-        // would mean a zero-width match at the start. Since zero-width matches advance the string position,
-        // the first bracket could then not act as the "not a backslash" for the second.
-        
-        chunks.selection = [[[@" " stringByAppendingString:chunks.selection] SE_stringByReplacingPattern:@"([^\\\\](?:\\\\\\\\)*)(?=[[\\]])" options:0 withTemplate:@"$1\\"] substringFromIndex:1];
-        
-        NSString *linkDefinition = [@" [999]: " stringByAppendingString:ProperlyEncoded(linkText)];
-        
-        NSInteger linkNumber = [chunks addLinkDefinition:linkDefinition];
-        
-        chunks.startTag = isImage ? @"![" : @"[";
-        chunks.endTag = [NSString stringWithFormat:@"][%ld]", (long)linkNumber];
-        
-        if (chunks.selection.length == 0) {
-            chunks.selection = isImage ? NSLocalizedString(@"enter image description here", nil) : NSLocalizedString(@"enter link description here", nil);
-        }
-        
-        return chunks;
-    });
+    // (                          $1
+    //     [^\\]                  anything that's not a backslash
+    //     (?:\\\\)*              an even number (this includes zero) of backslashes
+    // )
+    // (?=                        followed by
+    //     [[\]]                  an opening or closing bracket
+    // )
+    //
+    // In other words, a non-escaped bracket. These have to be escaped now to make sure they
+    // don't count as the end of the link or similar.
+    // Note that the actual bracket has to be a lookahead, because (in case of to subsequent brackets),
+    // the bracket in one match may be the "not a backslash" character in the next match, so it
+    // should not be consumed by the first match.
+    // The "prepend a space and finally remove it" steps makes sure there is a "not a backslash" at the
+    // start of the string, so this also works if the selection begins with a bracket. We cannot solve
+    // this by anchoring with ^, because in the case that the selection starts with two brackets, this
+    // would mean a zero-width match at the start. Since zero-width matches advance the string position,
+    // the first bracket could then not act as the "not a backslash" for the second.
+    
+    self.selection = [[[@" " stringByAppendingString:self.selection] SE_stringByReplacingPattern:@"([^\\\\](?:\\\\\\\\)*)(?=[[\\]])" options:0 withTemplate:@"$1\\"] substringFromIndex:1];
+    
+    NSString *linkDefinition = [@" [999]: " stringByAppendingString:ProperlyEncoded(linkText)];
+    
+    NSInteger linkNumber = [self addLinkDefinition:linkDefinition];
+    
+    self.startTag = isImage ? @"![" : @"[";
+    self.endTag = [NSString stringWithFormat:@"][%ld]", (long)linkNumber];
+    
+    if (self.selection.length == 0) {
+        self.selection = isImage ? NSLocalizedString(@"enter image description here", nil) : NSLocalizedString(@"enter link description here", nil);
+    }
 }
 
 - (NSInteger)addLinkDefinition:(NSString *)linkDefinition

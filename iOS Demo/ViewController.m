@@ -65,11 +65,15 @@
 
 - (IBAction)toggleLink:(id)sender
 {
-    __block SEMarkdownTextChunks *chunks = [self.textView SE_textChunksFromSelection];
-    [chunks toggleLinkWithCreationBlock:^(SEMarkdownTextChunks *(^complete)(NSString *)) {
+    SEMarkdownTextChunks *chunks = [self.textView SE_textChunksFromSelection];
+    
+    if ([chunks removeLinkOrImage]) {
         
+        [self.textView SE_updateWithTextChunks:chunks];
+        
+    } else {
+    
         [self.textView resignFirstResponder];
-
         
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Insert Link", nil) message:@"http://example.com/ \"optional title\"" preferredStyle:UIAlertControllerStyleAlert];
         
@@ -85,14 +89,14 @@
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [self.textView SE_updateWithTextChunks:complete(URLField.text)];
+            [chunks addLink:URLField.text];
+            [self.textView SE_updateWithTextChunks:chunks];
             [self.textView becomeFirstResponder];
         }]];
         
         [self presentViewController:alertController animated:YES completion:nil];
         
-    }];
-    [self.textView SE_updateWithTextChunks:chunks];
+    }
 }
 
 @end
