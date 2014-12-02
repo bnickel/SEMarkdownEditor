@@ -230,7 +230,7 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     self.selection = PreventAutomaticSpoiler(self.selection);
     
     if (![self.selection SE_matchesPattern:@"\n" options:0]) {
-        self.selection = [self.selection SE_stringByReplacingFirstOccuranceOfPattern:@"^)(> *)" options:0 withBlock:^NSString *(NSArray *matches) {
+        self.selection = [self.selection SE_stringByReplacingFirstOccuranceOfPattern:@"^(> *)" options:0 withBlock:^NSString *(NSArray *matches) {
             self.startTag = [self.startTag stringByAppendingString:matches[1]];
             return @"";
         }];
