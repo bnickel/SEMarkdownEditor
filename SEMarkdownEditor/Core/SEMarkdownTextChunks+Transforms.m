@@ -17,13 +17,45 @@ NS_INLINE NSString *PreventAutomaticSpoiler(NSString *text) {
 }
 
 NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
+    
     return [linkDefinition SE_stringByReplacingFirstOccuranceOfPattern:@"^\\s*(.*?)(?:\\s+\"(.+)\")?\\s*\\z" options:0 withBlock:^NSString *(NSArray *matches) {
-        NSString *link = [matches[1] SE_stringByReplacingFirstOccuranceOfPattern:@"\\?.*$" options:0 withBlock:^NSString *(NSArray *matches) {
-            return [matches[0] stringByReplacingOccurrencesOfString:@"+" withString:@" "];
-        }];
-        link = [[link stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        link = [[[link stringByReplacingOccurrencesOfString:@"'" withString:@"%27"] stringByReplacingOccurrencesOfString:@")" withString:@"%29"] SE_stringByReplacingFirstOccuranceOfPattern:@"\\?.*$" options:0 withBlock:^NSString *(NSArray *matches) {
-            return [matches[0] stringByReplacingOccurrencesOfString:@"+" withString:@"%2b"];
+        
+        __block BOOL inQueryString = NO;
+        
+        // Having `[^\w\d-./]` in there is just a shortcut that lets us skip
+        // the most common characters in URLs. Replacing that it with `.` would not change
+        // the result, because encodeURI returns those characters unchanged, but it
+        // would mean lots of unnecessary replacement calls. Having `[` and `]` in that
+        // section as well means we do *not* enocde square brackets. These characters are
+        // a strange beast in URLs, but if anything, this causes URLs to be more readable,
+        // and we leave it to the browser to make sure that these links are handled without
+        // problems.
+        NSString *link = [matches[1] SE_stringByReplacingPattern:@"%(?:[\\da-fA-F]{2})|\\?|\\+|[^\\w\\d-./\\[\\]]" options:0 withBlock:^NSString *(NSArray *matches) {
+            
+            NSString *match = matches[0];
+            
+            // Valid percent encoding. Could just return it as is, but we follow RFC3986
+            // Section 2.1 which says "For consistency, URI producers and normalizers
+            // should use uppercase hexadecimal digits for all percent-encodings."
+            // Note that we also handle (illegal) stand-alone percent characters by
+            // replacing them with "%25"
+            if (match.length == 3 && [match hasPrefix:@"%"]) {
+                return [match uppercaseString];
+            }
+            
+            if ([match isEqualToString:@"?"]) {
+                inQueryString = YES;
+                return match;
+            }
+            
+            // In the query string, a plus and a space are identical -- normalize.
+            // Not strictly necessary, but identical behavior to the previous version
+            // of this function.
+            if (inQueryString && [match isEqualToString:@"+"]) {
+                return @"%20";
+            }
+            
+            return [match stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         }];
         
         NSString *title = matches[2];
@@ -154,7 +186,7 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     //
     // Since this is essentially a backwards-moving regex, it's susceptible to
     // catstrophic backtracking and can cause the browser to hang;
-    // see e.g. http://meta.stackoverflow.com/questions/9807.
+    // see e.g. http://meta.stackexchange.com/questions/9807
     //
     // Hence we replaced this by a simple state machine that just goes through the
     // lines and checks for a), b), and c).
