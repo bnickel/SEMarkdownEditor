@@ -29,3 +29,10 @@ Demo
 ----
 
 The project contains an iOS demo with a simple toolbar demonstrating how to wire features to a toolbar.  Open the project in Xcode 6 or later and run the **iOS Demo** target.
+
+Installation
+------------
+
+```ruby
+pod 'SEMarkdownEditor'
+```
