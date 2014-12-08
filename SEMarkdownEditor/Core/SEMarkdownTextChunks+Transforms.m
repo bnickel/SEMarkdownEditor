@@ -379,7 +379,7 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     }
     
     // Fixes common pasting errors.
-    linkText = [linkText SE_stringByReplacingFirstOccuranceOfPattern:@"^http:\\/\\/(http?/ftp):\\/\\/" options:0 withTemplate:@"$1://"];
+    linkText = [linkText SE_stringByReplacingFirstOccuranceOfPattern:@"^http:\\/\\/(https?|ftp):\\/\\/" options:0 withTemplate:@"$1://"];
     if (![linkText SE_matchesPattern:@"^(?:https?|ftp):\\/\\/" options:0]) {
         linkText = [@"http://" stringByAppendingString:linkText];
     }
