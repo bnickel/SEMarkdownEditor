@@ -9,6 +9,13 @@
 #import "UITextView+SEMarkdownEditor.h"
 #import "../Core/SEMarkdownTextChunks.h"
 
+
+#ifndef kCFCoreFoundationVersionNumber_iOS_7_0
+#define kCFCoreFoundationVersionNumber_iOS_7_0 847.2
+#endif
+
+#define SEMarkdownEditorRequiresTextViewWorkarounds() (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_7_0)
+
 @implementation UITextView (SEMarkdownEditor)
 
 - (SEMarkdownTextChunks *)SE_textChunksFromSelection
@@ -25,6 +32,19 @@
     NSRange range;
     self.text = [chunks textWithSelection:&range];
     self.selectedRange = range;
+    
+    
+    if SEMarkdownEditorRequiresTextViewWorkarounds() {
+        
+        // Prevents the text view content size from radically changing on update.
+        UIGraphicsBeginImageContext(self.bounds.size);
+        [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+        UIGraphicsEndImageContext();
+        
+        // Triggers scrolling to the selection.
+        [self setNeedsLayout];
+    }
+    
 }
 
 @end
