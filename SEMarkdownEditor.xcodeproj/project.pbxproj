@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EB135E311A5C555B001527DF /* PSPDFTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB135E301A5C555B001527DF /* PSPDFTextView.m */; };
 		EBC887F71A2D0E6D002777DB /* SEMarkdownEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBC887EB1A2D0E6C002777DB /* SEMarkdownEditor.framework */; };
 		EBC887FE1A2D0E6D002777DB /* SEMarkdownEditorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC887FD1A2D0E6D002777DB /* SEMarkdownEditorTests.m */; };
 		EBC888141A2D1058002777DB /* SEMarkdownTextChunks.h in Headers */ = {isa = PBXBuildFile; fileRef = EBC888101A2D1058002777DB /* SEMarkdownTextChunks.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -47,6 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EB135E2F1A5C555B001527DF /* PSPDFTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSPDFTextView.h; sourceTree = "<group>"; };
+		EB135E301A5C555B001527DF /* PSPDFTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSPDFTextView.m; sourceTree = "<group>"; };
 		EBC887EB1A2D0E6C002777DB /* SEMarkdownEditor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SEMarkdownEditor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBC887EF1A2D0E6C002777DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EBC887F61A2D0E6D002777DB /* SEMarkdownEditorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SEMarkdownEditorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -188,6 +191,8 @@
 				EBC8882D1A2D1CC7002777DB /* AppDelegate.m */,
 				EBC8882F1A2D1CC7002777DB /* ViewController.h */,
 				EBC888301A2D1CC7002777DB /* ViewController.m */,
+				EB135E2F1A5C555B001527DF /* PSPDFTextView.h */,
+				EB135E301A5C555B001527DF /* PSPDFTextView.m */,
 				EBC888321A2D1CC7002777DB /* Main.storyboard */,
 				EBC888571A2E23D5002777DB /* MarkdownToolbar.xib */,
 				EBC888351A2D1CC7002777DB /* Images.xcassets */,
@@ -374,6 +379,7 @@
 				EBC888311A2D1CC7002777DB /* ViewController.m in Sources */,
 				EBC8882E1A2D1CC7002777DB /* AppDelegate.m in Sources */,
 				EBC8882B1A2D1CC7002777DB /* main.m in Sources */,
+				EB135E311A5C555B001527DF /* PSPDFTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -603,6 +609,7 @@
 				EBC888031A2D0E6D002777DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EBC888041A2D0E6D002777DB /* Build configuration list for PBXNativeTarget "SEMarkdownEditorTests" */ = {
 			isa = XCConfigurationList;
@@ -611,6 +618,7 @@
 				EBC888061A2D0E6D002777DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EBC888461A2D1CC7002777DB /* Build configuration list for PBXNativeTarget "iOS Demo" */ = {
 			isa = XCConfigurationList;
@@ -619,6 +627,7 @@
 				EBC888481A2D1CC7002777DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
