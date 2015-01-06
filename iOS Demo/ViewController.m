@@ -9,7 +9,7 @@
 #import "ViewController.h"
 @import SEMarkdownEditor;
 
-@interface ViewController ()
+@interface ViewController () <UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (strong, nonatomic) IBOutlet UIView *markdownToolbar;
 @end
@@ -75,28 +75,22 @@
     
         [self.textView resignFirstResponder];
         
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Insert Link", nil) message:@"http://example.com/ \"optional title\"" preferredStyle:UIAlertControllerStyleAlert];
-        
-        __block UITextField *URLField = nil;
-        
-        [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-            URLField = textField;
-            textField.keyboardType = UIKeyboardTypeURL;
-        }];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-            [self.textView becomeFirstResponder];
-        }]];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [chunks addLink:URLField.text];
-            [self.textView SE_updateWithTextChunks:chunks];
-            [self.textView becomeFirstResponder];
-        }]];
-        
-        [self presentViewController:alertController animated:YES completion:nil];
-        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Insert Link", nil) message:@"http://example.com/ \"optional title\"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"OK", nil), nil];
+        alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+        [alertView textFieldAtIndex:0].keyboardType = UIKeyboardTypeURL;
+        [alertView show];
     }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        SEMarkdownTextChunks *chunks = [self.textView SE_textChunksFromSelection];
+        [chunks addLink:[alertView textFieldAtIndex:0].text];
+        [self.textView SE_updateWithTextChunks:chunks];
+    }
+    
+    [self.textView becomeFirstResponder];
 }
 
 @end
