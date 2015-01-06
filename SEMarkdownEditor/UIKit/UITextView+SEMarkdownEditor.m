@@ -25,7 +25,15 @@
 
 - (void)SE_updateWithTextChunks:(SEMarkdownTextChunks *)chunks
 {
-    [self.undoManager registerUndoWithTarget:self selector:@selector(SE_updateWithTextChunks:) object:[self SE_textChunksFromSelection]];
+    [self SE_updateWithTextChunks:chunks actionName:nil];
+}
+
+- (void)SE_updateWithTextChunks:(SEMarkdownTextChunks *)chunks actionName:(NSString *)actionName
+{
+    [[self.undoManager prepareWithInvocationTarget:self] SE_updateWithTextChunks:[self SE_textChunksFromSelection] actionName:nil];
+    if (actionName) {
+        [self.undoManager setActionName:actionName];
+    }
     
     [self becomeFirstResponder];
     

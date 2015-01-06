@@ -49,28 +49,28 @@
 {
     SEMarkdownTextChunks *chunks = [self.textView SE_textChunksFromSelection];
     [chunks toggleBoldface];
-    [self.textView SE_updateWithTextChunks:chunks];
+    [self.textView SE_updateWithTextChunks:chunks actionName:NSLocalizedString(@"Bold", nil)];
 }
 
 - (IBAction)toggleItalics:(id)sender
 {
     SEMarkdownTextChunks *chunks = [self.textView SE_textChunksFromSelection];
     [chunks toggleItalics];
-    [self.textView SE_updateWithTextChunks:chunks];
+    [self.textView SE_updateWithTextChunks:chunks actionName:NSLocalizedString(@"Italic", nil)];
 }
 
 - (IBAction)toggleCode:(id)sender
 {
     SEMarkdownTextChunks *chunks = [self.textView SE_textChunksFromSelection];
     [chunks toggleCode];
-    [self.textView SE_updateWithTextChunks:chunks];
+    [self.textView SE_updateWithTextChunks:chunks actionName:NSLocalizedString(@"Code", nil)];
 }
 
 - (IBAction)toggleOrderedList:(id)sender
 {
     SEMarkdownTextChunks *chunks = [self.textView SE_textChunksFromSelection];
     [chunks toggleOrderedList];
-    [self.textView SE_updateWithTextChunks:chunks];
+    [self.textView SE_updateWithTextChunks:chunks actionName:NSLocalizedString(@"Ordered List", nil)];
 }
 
 - (IBAction)toggleLink:(id)sender
@@ -79,7 +79,7 @@
     
     if ([chunks removeLinkOrImage]) {
         
-        [self.textView SE_updateWithTextChunks:chunks];
+        [self.textView SE_updateWithTextChunks:chunks actionName:NSLocalizedString(@"Remove Link", nil)];
         
     } else {
     
@@ -97,7 +97,7 @@
     if (buttonIndex != alertView.cancelButtonIndex) {
         SEMarkdownTextChunks *chunks = [self.textView SE_textChunksFromSelection];
         [chunks addLink:[alertView textFieldAtIndex:0].text];
-        [self.textView SE_updateWithTextChunks:chunks];
+        [self.textView SE_updateWithTextChunks:chunks actionName:NSLocalizedString(@"Link", nil)];
     }
     
     [self.textView becomeFirstResponder];
