@@ -13,7 +13,7 @@ Performing any transformation is a matter of getting the text and selection info
 {
     SEMarkdownTextChunks *chunks = [self.textView SE_textChunksFromSelection];
     [chunks toggleBoldface];
-    [self.textView SE_updateWithTextChunks:chunks];
+    [self.textView SE_updateWithTextChunks:chunks actionName:NSLocalizedString(@"markdown.boldface", @"Boldface")];
 }
 ```
 
@@ -21,7 +21,7 @@ Performing any transformation is a matter of getting the text and selection info
 @IBAction func toggleBoldface(sender:AnyObject) {
 	let chunks = textView.SE_textChunksFromSelection()
 	chunks.toggleBoldface()
-	textView.SE_updateWithTextChunks(chunks)
+	textView.SE_updateWithTextChunks(chunks, actionName:NSLocalizedString("markdown.boldface", comment: "Boldface"))
 }
 ```
 
