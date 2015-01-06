@@ -12,13 +12,23 @@
 @interface ViewController () <UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (strong, nonatomic) IBOutlet UIView *markdownToolbar;
+@property (nonatomic, assign) CGFloat keyboardInset;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -91,6 +101,49 @@
     }
     
     [self.textView becomeFirstResponder];
+}
+
+- (CGFloat)keyboardInsetFromUserInfo:(NSDictionary *)userInfo
+{
+    id boxedFrame = userInfo[UIKeyboardFrameEndUserInfoKey];
+    if (boxedFrame && self.view.window && self.textView) {
+        CGRect frame = [boxedFrame CGRectValue];
+        return CGRectGetHeight(self.textView.frame) - CGRectGetMinY(frame);
+    } else {
+        return 0;
+    }
+}
+
+- (void)setKeyboardInset:(CGFloat)keyboardInset
+{
+    if (_keyboardInset != keyboardInset) {
+        CGFloat delta = keyboardInset - _keyboardInset;
+        _keyboardInset = keyboardInset;
+        
+        UIEdgeInsets contentInset = self.textView.contentInset;
+        contentInset.bottom += delta;
+        self.textView.contentInset = contentInset;
+        
+        UIEdgeInsets indicatorInsets = self.textView.scrollIndicatorInsets;
+        indicatorInsets.bottom += delta;
+        self.textView.scrollIndicatorInsets = indicatorInsets;
+    }
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    NSLog(@"Show: %@", notification.userInfo);
+    self.keyboardInset = [self keyboardInsetFromUserInfo:notification.userInfo];
+}
+
+- (void)keyboardWillChangeFrame:(NSNotification *)notification
+{
+    self.keyboardInset = [self keyboardInsetFromUserInfo:notification.userInfo];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    self.keyboardInset = [self keyboardInsetFromUserInfo:notification.userInfo];
 }
 
 @end
