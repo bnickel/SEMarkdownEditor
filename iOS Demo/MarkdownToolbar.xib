@@ -30,9 +30,9 @@
                         <action selector="toggleCode:" destination="-1" id="Dly-BJ-fUZ"/>
                     </connections>
                 </barButtonItem>
-                <barButtonItem title="Blockquote" id="xaf-jq-8Kn">
+                <barButtonItem title="List" id="xaf-jq-8Kn">
                     <connections>
-                        <action selector="toggleBlockquote:" destination="-1" id="uVN-uP-TiJ"/>
+                        <action selector="toggleOrderedList:" destination="-1" id="V48-wv-Qrw"/>
                     </connections>
                 </barButtonItem>
                 <barButtonItem title="Link" id="hBf-UF-TFC">

@@ -66,10 +66,10 @@
     [self.textView SE_updateWithTextChunks:chunks];
 }
 
-- (IBAction)toggleBlockquote:(id)sender
+- (IBAction)toggleOrderedList:(id)sender
 {
     SEMarkdownTextChunks *chunks = [self.textView SE_textChunksFromSelection];
-    [chunks toggleBlockquote];
+    [chunks toggleOrderedList];
     [self.textView SE_updateWithTextChunks:chunks];
 }
 
