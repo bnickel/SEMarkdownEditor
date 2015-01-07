@@ -391,28 +391,21 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     [self addLink:imageURLAndOptionalTitle isImage:YES];
 }
 
-- (void)addInlineLink:(NSString*)linkText
+- (void)addInlineLink:(NSString *)linkText
 {
     if (linkText.length == 0) {
         return;
     }
-    linkText = [self fixCommonLinkErrorsWithText:linkText];
-    self.startTag = @"[";
-    self.endTag = @"]";
-    if (self.selection.length == 0) {
-        self.selection = NSLocalizedString(@"Enter link text here", nil);
-    }
     
-    self.after = [[NSString stringWithFormat:@"(%@)", ProperlyEncoded(linkText)] stringByAppendingString:self.after];
-}
-
-- (NSString*)fixCommonLinkErrorsWithText:(NSString*)linkText
-{
-    linkText = [linkText SE_stringByReplacingFirstOccuranceOfPattern:@"^http:\\/\\/(https?|ftp):\\/\\/" options:0 withTemplate:@"$1://"];
-    if (![linkText SE_matchesPattern:@"^(?:https?|ftp):\\/\\/" options:0]) {
-        linkText = [@"http://" stringByAppendingString:linkText];
+    linkText = [self stringByFixingCommonLinkErrorsInString:linkText];
+    
+    self.selection = [self stringByEscapingBracketsInString:self.selection];
+    self.startTag = @"[";
+    self.endTag = [NSString stringWithFormat:@"](%@)", ProperlyEncoded(linkText)];
+    
+    if (self.selection.length == 0) {
+        self.selection = NSLocalizedString(@"enter link description here", nil);
     }
-    return linkText;
 }
 
 - (void)addLink:(NSString *)linkText isImage:(BOOL)isImage
@@ -421,8 +414,36 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
         return;
     }
     
-    linkText = [self fixCommonLinkErrorsWithText:linkText];
+    linkText = [self stringByFixingCommonLinkErrorsInString:linkText];
+    self.selection = [self stringByEscapingBracketsInString:self.selection];
     
+    NSString *linkDefinition = [@" [999]: " stringByAppendingString:ProperlyEncoded(linkText)];
+    
+    NSInteger linkNumber = [self addLinkDefinition:linkDefinition];
+    
+    self.startTag = isImage ? @"![" : @"[";
+    self.endTag = [NSString stringWithFormat:@"][%ld]", (long)linkNumber];
+    
+    if (self.selection.length == 0) {
+        self.selection = isImage ? NSLocalizedString(@"enter image description here", nil) : NSLocalizedString(@"enter link description here", nil);
+    }
+}
+
+- (NSString *)stringByFixingCommonLinkErrorsInString:(NSString *)string
+{
+    // "http://http://stackoverflow.com" -> "http://stackoverflow.com"
+    string = [string SE_stringByReplacingFirstOccuranceOfPattern:@"^http:\\/\\/(https?|ftp):\\/\\/" options:0 withTemplate:@"$1://"];
+    
+    // "stackoverflow.com" -> "http://stackoverflow.com"
+    if (![string SE_matchesPattern:@"^(?:https?|ftp):\\/\\/" options:0]) {
+        string = [@"http://" stringByAppendingString:string];
+    }
+    
+    return string;
+}
+
+- (NSString *)stringByEscapingBracketsInString:(NSString *)string
+{
     // (                          $1
     //     [^\\]                  anything that's not a backslash
     //     (?:\\\\)*              an even number (this includes zero) of backslashes
@@ -442,18 +463,7 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     // would mean a zero-width match at the start. Since zero-width matches advance the string position,
     // the first bracket could then not act as the "not a backslash" for the second.
     
-    self.selection = [[[@" " stringByAppendingString:self.selection] SE_stringByReplacingPattern:@"([^\\\\](?:\\\\\\\\)*)(?=[[\\]])" options:0 withTemplate:@"$1\\"] substringFromIndex:1];
-    
-    NSString *linkDefinition = [@" [999]: " stringByAppendingString:ProperlyEncoded(linkText)];
-    
-    NSInteger linkNumber = [self addLinkDefinition:linkDefinition];
-    
-    self.startTag = isImage ? @"![" : @"[";
-    self.endTag = [NSString stringWithFormat:@"][%ld]", (long)linkNumber];
-    
-    if (self.selection.length == 0) {
-        self.selection = isImage ? NSLocalizedString(@"enter image description here", nil) : NSLocalizedString(@"enter link description here", nil);
-    }
+    return [[[@" " stringByAppendingString:string] SE_stringByReplacingPattern:@"([^\\\\](?:\\\\\\\\)*)(?=[\\[\\]])" options:0 withTemplate:@"$1\\\\"] substringFromIndex:1];
 }
 
 - (NSInteger)addLinkDefinition:(NSString *)linkDefinition

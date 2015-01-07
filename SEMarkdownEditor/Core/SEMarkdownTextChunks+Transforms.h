@@ -45,6 +45,6 @@
  e.g. [link](http://example.com)
  @see removeLinkOrImage
  **/
-- (void)addInlineLink:(NSString *)linkText;
+- (void)addInlineLink:(NSString *)linkURLAndOptionalTitle;
 
 @end
