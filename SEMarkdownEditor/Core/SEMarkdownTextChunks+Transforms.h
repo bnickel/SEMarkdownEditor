@@ -22,8 +22,8 @@
 - (void)toggleHorizontalRule;
 
 /**
- @abstract Attempts to remove a reference-style link or image.
- @discussion This method is broken in two parts as compared to the toggle methods because it depends on user interaction when adding content.  If you are attempting to toggle a link you should first call this method and if it returns @c NO then prompt the user for a new value, calling @c addLink: or @c addImage: as appropriate.
+ @abstract Attempts to remove a link or image.
+ @discussion This method is broken in two parts as compared to the toggle methods because it depends on user interaction when adding content.  If you are attempting to toggle a link you should first call this method and if it returns @c NO then prompt the user for a new value, calling @c addLink:, @c addInlineLink:, or @c addImage: as appropriate.
  @return @c YES if a link was removed, otherwise @c NO.
  */
 - (BOOL)removeLinkOrImage;
@@ -43,15 +43,8 @@
 /**
 @abstract Adds a link to the document with an inline format
  e.g. [link](http://example.com)
- @see removeInlineLink
+ @see removeLinkOrImage
  **/
 - (void)addInlineLink:(NSString*)linkText;
-
-/**
- @abstract Attempt to remove a link with an inline format
- @discussion This method is broken into two parts. If you are attempting to toggle an inline link you should first call this method and if it returns @c NO then prompt the user for a new value, calling @c addInlineLink:
- @returns @c YES if link is removed, otherwise @c NO.
- **/
-- (BOOL)removeInlineLink;
 
 @end

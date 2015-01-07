@@ -348,7 +348,9 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
 
 - (BOOL)removeLinkOrImage
 {
+    NSString *selectionCopy = [self.selection copy], *beforeCopy = [self.before copy], *afterCopy = [self.after copy];
     [self trimWhitespaceAndRemove:NO];
+    //look for reference-style links or images
     [self findLeft:@"\\s*!?\\[" andRightTags:@"\\][ ]?(?:\n[ ]*)?(\\[.*?\\])?"];
     if (self.endTag.length > 1 && self.startTag.length > 0) {
         self.startTag = [self.startTag SE_stringByReplacingFirstOccuranceOfPattern:@"!?\\[" options:0 withTemplate:@""];
@@ -356,13 +358,30 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
         [self addLinkDefinition:nil];
         return YES;
     }
+    
     [self restoreSelectionStateAfterTagsSearch];
     
     if ([self.selection SE_matchesPattern:@"\n\n" options:0]) {
         [self addLinkDefinition:nil];
         return YES;
     }
+
+    //restore state since findLeft:andRightTags alters it 
+    self.selection = selectionCopy;
+    self.before = beforeCopy;
+    self.after = afterCopy;
     
+    //look for inline-style links
+    [self findLeft:@"\\[" andRightTags:@"\\]\\(.*?\\)"];
+    if (self.startTag.length > 0 && self.endTag.length > 0)
+    {
+        self.startTag = @"";
+        self.endTag = @"";
+        return YES;
+    }
+    //if selection includes '[' or ']', but it's not a full link, this prevents
+    //brackets from getting removed
+    [self restoreSelectionStateAfterTagsSearch];
     return NO;
 }
 
@@ -389,19 +408,6 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     }
     
     self.after = [[NSString stringWithFormat:@"(%@)", ProperlyEncoded(linkText)] stringByAppendingString:self.after];
-}
-
-- (BOOL)removeInlineLink
-{
-    [self findLeft:@"\\[" andRightTags:@"\\]\\(.*?\\)"];
-    if (self.startTag.length > 0 && self.endTag.length > 0)
-    {
-        self.startTag = @"";
-        self.endTag = @"";
-        return YES;
-    }
-    [self restoreSelectionStateAfterTagsSearch];
-    return NO;
 }
 
 - (NSString*)fixCommonLinkErrorsWithText:(NSString*)linkText
