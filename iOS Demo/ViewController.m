@@ -132,7 +132,6 @@
 
 - (void)keyboardWillShow:(NSNotification *)notification
 {
-    NSLog(@"Show: %@", notification.userInfo);
     self.keyboardInset = [self keyboardInsetFromUserInfo:notification.userInfo];
 }
 
