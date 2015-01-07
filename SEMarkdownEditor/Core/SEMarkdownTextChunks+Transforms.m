@@ -339,15 +339,19 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     }
 }
 
-- (void)restoreSelectionStateAfterTagsSearch
+- (void)restoreValuesFromCopy:(SEMarkdownTextChunks *)copy
 {
-    self.selection = [NSString stringWithFormat:@"%@%@%@", self.startTag, self.selection, self.endTag];
-    self.startTag = @"";
-    self.endTag = @"";
+    self.before = copy.before;
+    self.startTag = copy.startTag;
+    self.selection = copy.selection;
+    self.endTag = copy.endTag;
+    self.after = copy.after;
 }
 
 - (BOOL)removeLinkOrImage
 {
+    SEMarkdownTextChunks *copy = [self copy];
+    
     [self trimWhitespaceAndRemove:NO];
     [self findLeft:@"\\s*!?\\[" andRightTags:@"\\][ ]?(?:\n[ ]*)?(\\[.*?\\])?"];
     if (self.endTag.length > 1 && self.startTag.length > 0) {
@@ -356,7 +360,18 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
         [self addLinkDefinition:nil];
         return YES;
     }
-    [self restoreSelectionStateAfterTagsSearch];
+    
+    [self restoreValuesFromCopy:copy];
+    
+    [self findLeft:@"\\[" andRightTags:@"\\]\\(.*?\\)"];
+    
+    if (self.startTag.length > 0 && self.endTag.length > 0) {
+        self.startTag = @"";
+        self.endTag = @"";
+        return YES;
+    }
+    
+    [self restoreValuesFromCopy:copy];
     
     if ([self.selection SE_matchesPattern:@"\n\n" options:0]) {
         [self addLinkDefinition:nil];
@@ -389,19 +404,6 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     }
     
     self.after = [[NSString stringWithFormat:@"(%@)", ProperlyEncoded(linkText)] stringByAppendingString:self.after];
-}
-
-- (BOOL)removeInlineLink
-{
-    [self findLeft:@"\\[" andRightTags:@"\\]\\(.*?\\)"];
-    if (self.startTag.length > 0 && self.endTag.length > 0)
-    {
-        self.startTag = @"";
-        self.endTag = @"";
-        return YES;
-    }
-    [self restoreSelectionStateAfterTagsSearch];
-    return NO;
 }
 
 - (NSString*)fixCommonLinkErrorsWithText:(NSString*)linkText
