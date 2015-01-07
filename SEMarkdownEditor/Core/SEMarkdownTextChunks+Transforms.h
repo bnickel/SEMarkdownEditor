@@ -46,7 +46,7 @@
 
 
 /**
- @abstract Toggles an unordered list, e.g. - List item
+ @abstract Toggles an ordered list, e.g. 1. List item
  @discussion When applied to a non-list string it converts the selection to a list item.  If an adjacent block is a list it will join that list, possibly converting it from an ordered list to an unordered list.  When applied to an item in an ordered list it will convert the whole list to an unordered list.  When applied to an item in an unordered list it will break the item out of the list as its own block level element.
  @see toggleUnorderedList
  @warning This method is not safe for single line documents.  When applied to part of a line it will insert new lines before and after the selection.
