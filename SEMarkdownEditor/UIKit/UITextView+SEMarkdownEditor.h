@@ -30,8 +30,18 @@
  @discussion This method includes bug fixes for iOS7+ to ensure a smooth animation to the new selection.  It has been tested with @c UITextView and @c PSPDFTextView in iOS 7.1 and iOS 8.1.
  @param chunks An instance of @c SEMarkdownTextChunks containing the transformed text and selection.
  @param actionName The action name to use when registering the selection with the @c NSUndoManager.  If @ nil no name is set.
+ @see SE_updateWithTextChunks:actionName:animated:
  */
 - (void)SE_updateWithTextChunks:(SEMarkdownTextChunks *)chunks actionName:(NSString *)actionName;
 - (void)SE_updateWithTextChunks:(SEMarkdownTextChunks *)chunks DEPRECATED_MSG_ATTRIBUTE("Use SE_updateWithTextChunks:actionName:");
+
+/**
+ @abstract Updates the text view's text and selection with the values from the text chunk.
+ @discussion This method includes bug fixes for iOS7+ to ensure a smooth animation to the new selection.  It has been tested with @c UITextView and @c PSPDFTextView in iOS 7.1 and iOS 8.1.
+ @param chunks An instance of @c SEMarkdownTextChunks containing the transformed text and selection.
+ @param actionName The action name to use when registering the selection with the @c NSUndoManager.  If @ nil no name is set.
+ @param animated Whether or not to animate scrolling ot the new selection.
+ */
+- (void)SE_updateWithTextChunks:(SEMarkdownTextChunks *)chunks actionName:(NSString *)actionName animated:(BOOL)animated;
 
 @end

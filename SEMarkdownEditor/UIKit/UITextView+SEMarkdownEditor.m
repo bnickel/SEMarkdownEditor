@@ -30,7 +30,12 @@
 
 - (void)SE_updateWithTextChunks:(SEMarkdownTextChunks *)chunks actionName:(NSString *)actionName
 {
-    [[self.undoManager prepareWithInvocationTarget:self] SE_updateWithTextChunks:[self SE_textChunksFromSelection] actionName:nil];
+    [self SE_updateWithTextChunks:chunks actionName:actionName animated:YES];
+}
+
+- (void)SE_updateWithTextChunks:(SEMarkdownTextChunks *)chunks actionName:(NSString *)actionName animated:(BOOL)animated
+{
+    [[self.undoManager prepareWithInvocationTarget:self] SE_updateWithTextChunks:[self SE_textChunksFromSelection] actionName:actionName animated:animated];
     if (actionName) {
         [self.undoManager setActionName:actionName];
     }
@@ -55,7 +60,7 @@
         
         // 3. Scroll to the new content.
         [self layoutSubviews]; // Required for iOS7.
-        [self SE_scrollRectToVisibleConsideringInsets:[self caretRectForPosition:self.selectedTextRange.end] animated:YES];
+        [self SE_scrollRectToVisibleConsideringInsets:[self caretRectForPosition:self.selectedTextRange.end] animated:animated];
     }
 }
 
