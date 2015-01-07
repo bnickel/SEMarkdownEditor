@@ -55,8 +55,39 @@
         
         // 3. Scroll to the new content.
         [self layoutSubviews]; // Required for iOS7.
-        [self scrollRectToVisible:[self firstRectForRange:self.selectedTextRange] animated:YES];
+        [self SE_scrollRectToVisibleConsideringInsets:[self caretRectForPosition:self.selectedTextRange.end] animated:YES];
+    }
+}
+
+// Copied from https://github.com/steipete/PSPDFTextView/blob/f53c03a5024cdeb6761598314abc8e5e2900bb02/PSPDFTextView/PSPDFTextView.m#L88 under MIT license.
+
+- (void)SE_scrollRectToVisibleConsideringInsets:(CGRect)rect animated:(BOOL)animated
+{
+    if SEMarkdownEditorRequiresTextViewWorkarounds() {
         
+        // Don't scroll if rect is currently visible.
+        UIEdgeInsets insets = UIEdgeInsetsMake(self.contentInset.top + self.textContainerInset.top,
+                                               self.contentInset.left + self.textContainerInset.left,
+                                               self.contentInset.bottom + self.textContainerInset.bottom,
+                                               self.contentInset.right + self.textContainerInset.right);
+        CGRect visibleRect = UIEdgeInsetsInsetRect(self.bounds, insets);
+        
+        if (!CGRectContainsRect(visibleRect, rect)) {
+            
+            // Calculate new content offset.
+            CGPoint contentOffset = self.contentOffset;
+            
+            if (CGRectGetMinY(rect) < CGRectGetMinY(visibleRect)) { // scroll up
+                contentOffset.y = CGRectGetMinY(rect) - insets.top;
+            } else { // scroll down
+                contentOffset.y = CGRectGetMaxY(rect) + insets.bottom - CGRectGetHeight(self.bounds);
+            }
+            
+            [self setContentOffset:contentOffset animated:animated];
+        }
+        
+    } else {
+        [self scrollRectToVisible:rect animated:animated];
     }
 }
 
