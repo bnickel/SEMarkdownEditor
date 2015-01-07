@@ -619,6 +619,11 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
 
 - (void)toggleHorizontalRule
 {
+    [self insertHorizontalRule];
+}
+
+- (void)insertHorizontalRule
+{
     self.startTag = @"----------\n";
     self.selection = @"";
     [self skipLinesBack:2 forward:1 findExtraNewlines:YES];
