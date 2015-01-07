@@ -121,24 +121,29 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
         }
         
     } else {
-        
-        // Use backticks (`) to delimit the code block.
-        [self trimWhitespaceAndRemove:NO];
-        [self findLeft:@"`" andRightTags:@"`"];
-        
-        if (!self.startTag.length && !self.endTag.length) {
-            self.startTag = @"`";
-            self.endTag = @"`";
-            if (!self.selection.length) {
-                self.selection = NSLocalizedString(@"enter code here", nil);
-            }
-        } else if (self.endTag.length && !self.startTag.length) {
-            self.before = [self.before stringByAppendingString:self.endTag];
-            self.endTag = @"";
-        } else {
-            self.startTag = @"";
-            self.endTag = @"";
+        [self toggleInlineCode];
+    }
+}
+
+- (void)toggleInlineCode
+{
+    // Use backticks (`) to delimit the code block.
+    [self trimWhitespaceAndRemove:NO];
+    self.selection = [self.selection SE_stringByReplacingPattern:@"\n{2,}" options:0 withTemplate:@"\n"];
+    [self findLeft:@"`" andRightTags:@"`"];
+    
+    if (!self.startTag.length && !self.endTag.length) {
+        self.startTag = @"`";
+        self.endTag = @"`";
+        if (!self.selection.length) {
+            self.selection = NSLocalizedString(@"enter code here", nil);
         }
+    } else if (self.endTag.length && !self.startTag.length) {
+        self.before = [self.before stringByAppendingString:self.endTag];
+        self.endTag = @"";
+    } else {
+        self.startTag = @"";
+        self.endTag = @"";
     }
 }
 

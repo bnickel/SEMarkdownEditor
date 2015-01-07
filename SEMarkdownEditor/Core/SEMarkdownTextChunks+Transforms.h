@@ -15,6 +15,7 @@
 
 - (void)toggleBlockquote;
 - (void)toggleCode;
+- (void)toggleInlineCode;
 
 - (void)toggleOrderedList;
 - (void)toggleUnorderedList;
