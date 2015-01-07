@@ -339,9 +339,18 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     }
 }
 
+- (void)restoreSelectionStateAfterTagsSearch
+{
+    self.selection = [NSString stringWithFormat:@"%@%@%@", self.startTag, self.selection, self.endTag];
+    self.startTag = @"";
+    self.endTag = @"";
+}
+
 - (BOOL)removeLinkOrImage
 {
+    NSString *selectionCopy = [self.selection copy], *beforeCopy = [self.before copy], *afterCopy = [self.after copy];
     [self trimWhitespaceAndRemove:NO];
+    //look for reference-style links or images
     [self findLeft:@"\\s*!?\\[" andRightTags:@"\\][ ]?(?:\n[ ]*)?(\\[.*?\\])?"];
     if (self.endTag.length > 1 && self.startTag.length > 0) {
         self.startTag = [self.startTag SE_stringByReplacingFirstOccuranceOfPattern:@"!?\\[" options:0 withTemplate:@""];
@@ -350,15 +359,29 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
         return YES;
     }
     
-    self.selection = [NSString stringWithFormat:@"%@%@%@", self.startTag, self.selection, self.endTag];
-    self.startTag = @"";
-    self.endTag = @"";
+    [self restoreSelectionStateAfterTagsSearch];
     
     if ([self.selection SE_matchesPattern:@"\n\n" options:0]) {
         [self addLinkDefinition:nil];
         return YES;
     }
+
+    //restore state since findLeft:andRightTags alters it 
+    self.selection = selectionCopy;
+    self.before = beforeCopy;
+    self.after = afterCopy;
     
+    //look for inline-style links
+    [self findLeft:@"\\[" andRightTags:@"\\]\\(.*?\\)"];
+    if (self.startTag.length > 0 && self.endTag.length > 0)
+    {
+        self.startTag = @"";
+        self.endTag = @"";
+        return YES;
+    }
+    //if selection includes '[' or ']', but it's not a full link, this prevents
+    //brackets from getting removed
+    [self restoreSelectionStateAfterTagsSearch];
     return NO;
 }
 
@@ -372,17 +395,37 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     [self addLink:imageURLAndOptionalTitle isImage:YES];
 }
 
+- (void)addInlineLink:(NSString*)linkText
+{
+    if (linkText.length == 0) {
+        return;
+    }
+    linkText = [self fixCommonLinkErrorsWithText:linkText];
+    self.startTag = @"[";
+    self.endTag = @"]";
+    if (self.selection.length == 0) {
+        self.selection = NSLocalizedString(@"Enter link text here", nil);
+    }
+    
+    self.after = [[NSString stringWithFormat:@"(%@)", ProperlyEncoded(linkText)] stringByAppendingString:self.after];
+}
+
+- (NSString*)fixCommonLinkErrorsWithText:(NSString*)linkText
+{
+    linkText = [linkText SE_stringByReplacingFirstOccuranceOfPattern:@"^http:\\/\\/(https?|ftp):\\/\\/" options:0 withTemplate:@"$1://"];
+    if (![linkText SE_matchesPattern:@"^(?:https?|ftp):\\/\\/" options:0]) {
+        linkText = [@"http://" stringByAppendingString:linkText];
+    }
+    return linkText;
+}
+
 - (void)addLink:(NSString *)linkText isImage:(BOOL)isImage
 {
     if (linkText.length == 0) {
         return;
     }
     
-    // Fixes common pasting errors.
-    linkText = [linkText SE_stringByReplacingFirstOccuranceOfPattern:@"^http:\\/\\/(https?|ftp):\\/\\/" options:0 withTemplate:@"$1://"];
-    if (![linkText SE_matchesPattern:@"^(?:https?|ftp):\\/\\/" options:0]) {
-        linkText = [@"http://" stringByAppendingString:linkText];
-    }
+    linkText = [self fixCommonLinkErrorsWithText:linkText];
     
     // (                          $1
     //     [^\\]                  anything that's not a backslash
