@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EB135E311A5C555B001527DF /* PSPDFTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = EB135E301A5C555B001527DF /* PSPDFTextView.m */; };
+		05C1BD2A4E6E0CF343F1AA00 /* Pods_iOS_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B064D4B07C3C893BDB0A0813 /* Pods_iOS_Demo.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		C8418DA1CFBE18485F4557E0 /* Pods_SEMarkdownEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0814260A158355E5090C7B5F /* Pods_SEMarkdownEditor.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		EBC887F71A2D0E6D002777DB /* SEMarkdownEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBC887EB1A2D0E6C002777DB /* SEMarkdownEditor.framework */; };
 		EBC887FE1A2D0E6D002777DB /* SEMarkdownEditorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC887FD1A2D0E6D002777DB /* SEMarkdownEditorTests.m */; };
 		EBC888141A2D1058002777DB /* SEMarkdownTextChunks.h in Headers */ = {isa = PBXBuildFile; fileRef = EBC888101A2D1058002777DB /* SEMarkdownTextChunks.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EBC888151A2D1058002777DB /* SEMarkdownTextChunks.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC888111A2D1058002777DB /* SEMarkdownTextChunks.m */; };
 		EBC888161A2D1058002777DB /* SEMarkdownTextChunks+Transforms.h in Headers */ = {isa = PBXBuildFile; fileRef = EBC888121A2D1058002777DB /* SEMarkdownTextChunks+Transforms.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EBC888171A2D1058002777DB /* SEMarkdownTextChunks+Transforms.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC888131A2D1058002777DB /* SEMarkdownTextChunks+Transforms.m */; };
-		EBC8881B1A2D10A8002777DB /* NSString+SERegularExpressions.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC888191A2D10A8002777DB /* NSString+SERegularExpressions.m */; };
 		EBC888211A2D17A9002777DB /* Core.h in Headers */ = {isa = PBXBuildFile; fileRef = EBC888201A2D17A9002777DB /* Core.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EBC8882B1A2D1CC7002777DB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC8882A1A2D1CC7002777DB /* main.m */; };
 		EBC8882E1A2D1CC7002777DB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC8882D1A2D1CC7002777DB /* AppDelegate.m */; };
@@ -22,7 +22,6 @@
 		EBC888341A2D1CC7002777DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBC888321A2D1CC7002777DB /* Main.storyboard */; };
 		EBC888361A2D1CC7002777DB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBC888351A2D1CC7002777DB /* Images.xcassets */; };
 		EBC888391A2D1CC7002777DB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EBC888371A2D1CC7002777DB /* LaunchScreen.xib */; };
-		EBC8884E1A2D1E1B002777DB /* NSString+SERegularExpressions.h in Headers */ = {isa = PBXBuildFile; fileRef = EBC888181A2D10A8002777DB /* NSString+SERegularExpressions.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		EBC888511A2D1E94002777DB /* UITextView+SEMarkdownEditor.h in Headers */ = {isa = PBXBuildFile; fileRef = EBC8884F1A2D1E94002777DB /* UITextView+SEMarkdownEditor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EBC888521A2D1E94002777DB /* UITextView+SEMarkdownEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC888501A2D1E94002777DB /* UITextView+SEMarkdownEditor.m */; };
 		EBC888561A2D2DDC002777DB /* SEMarkdownEditor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBC887EB1A2D0E6C002777DB /* SEMarkdownEditor.framework */; };
@@ -48,8 +47,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		EB135E2F1A5C555B001527DF /* PSPDFTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSPDFTextView.h; sourceTree = "<group>"; };
-		EB135E301A5C555B001527DF /* PSPDFTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSPDFTextView.m; sourceTree = "<group>"; };
+		0814260A158355E5090C7B5F /* Pods_SEMarkdownEditor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SEMarkdownEditor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		22EF0A53B0F41126336757CC /* Pods-SEMarkdownEditor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEMarkdownEditor.release.xcconfig"; path = "Pods/Target Support Files/Pods-SEMarkdownEditor/Pods-SEMarkdownEditor.release.xcconfig"; sourceTree = "<group>"; };
+		83BFA72F3FFC98EE5972A941 /* Pods-iOS Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOS Demo/Pods-iOS Demo.release.xcconfig"; sourceTree = "<group>"; };
+		B064D4B07C3C893BDB0A0813 /* Pods_iOS_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8A46AC549280FBAA3926D1D /* Pods-SEMarkdownEditor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SEMarkdownEditor.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SEMarkdownEditor/Pods-SEMarkdownEditor.debug.xcconfig"; sourceTree = "<group>"; };
+		C3AD23D9138CB1C66D8DF3D2 /* Pods-iOS Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOS Demo/Pods-iOS Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		EBC887EB1A2D0E6C002777DB /* SEMarkdownEditor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SEMarkdownEditor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBC887EF1A2D0E6C002777DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EBC887F61A2D0E6D002777DB /* SEMarkdownEditorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SEMarkdownEditorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,8 +62,6 @@
 		EBC888111A2D1058002777DB /* SEMarkdownTextChunks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEMarkdownTextChunks.m; path = Core/SEMarkdownTextChunks.m; sourceTree = "<group>"; };
 		EBC888121A2D1058002777DB /* SEMarkdownTextChunks+Transforms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SEMarkdownTextChunks+Transforms.h"; path = "Core/SEMarkdownTextChunks+Transforms.h"; sourceTree = "<group>"; };
 		EBC888131A2D1058002777DB /* SEMarkdownTextChunks+Transforms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SEMarkdownTextChunks+Transforms.m"; path = "Core/SEMarkdownTextChunks+Transforms.m"; sourceTree = "<group>"; };
-		EBC888181A2D10A8002777DB /* NSString+SERegularExpressions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+SERegularExpressions.h"; path = "Core/NSString+SERegularExpressions.h"; sourceTree = "<group>"; };
-		EBC888191A2D10A8002777DB /* NSString+SERegularExpressions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+SERegularExpressions.m"; path = "Core/NSString+SERegularExpressions.m"; sourceTree = "<group>"; };
 		EBC888201A2D17A9002777DB /* Core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Core.h; path = Core/Core.h; sourceTree = "<group>"; };
 		EBC888261A2D1CC7002777DB /* iOS Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBC888291A2D1CC7002777DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -83,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8418DA1CFBE18485F4557E0 /* Pods_SEMarkdownEditor.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,12 +101,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				EBC888561A2D2DDC002777DB /* SEMarkdownEditor.framework in Frameworks */,
+				05C1BD2A4E6E0CF343F1AA00 /* Pods_iOS_Demo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8B88E7851D50CE040EF47719 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0814260A158355E5090C7B5F /* Pods_SEMarkdownEditor.framework */,
+				B064D4B07C3C893BDB0A0813 /* Pods_iOS_Demo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DEDCD64BB654CE8BBB2CE2AE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B8A46AC549280FBAA3926D1D /* Pods-SEMarkdownEditor.debug.xcconfig */,
+				22EF0A53B0F41126336757CC /* Pods-SEMarkdownEditor.release.xcconfig */,
+				C3AD23D9138CB1C66D8DF3D2 /* Pods-iOS Demo.debug.xcconfig */,
+				83BFA72F3FFC98EE5972A941 /* Pods-iOS Demo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		EBC887E11A2D0E6C002777DB = {
 			isa = PBXGroup;
 			children = (
@@ -112,6 +135,8 @@
 				EBC887FA1A2D0E6D002777DB /* SEMarkdownEditorTests */,
 				EBC888271A2D1CC7002777DB /* iOS Demo */,
 				EBC887EC1A2D0E6C002777DB /* Products */,
+				DEDCD64BB654CE8BBB2CE2AE /* Pods */,
+				8B88E7851D50CE040EF47719 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -168,8 +193,6 @@
 				EBC888111A2D1058002777DB /* SEMarkdownTextChunks.m */,
 				EBC888121A2D1058002777DB /* SEMarkdownTextChunks+Transforms.h */,
 				EBC888131A2D1058002777DB /* SEMarkdownTextChunks+Transforms.m */,
-				EBC888181A2D10A8002777DB /* NSString+SERegularExpressions.h */,
-				EBC888191A2D10A8002777DB /* NSString+SERegularExpressions.m */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -191,8 +214,6 @@
 				EBC8882D1A2D1CC7002777DB /* AppDelegate.m */,
 				EBC8882F1A2D1CC7002777DB /* ViewController.h */,
 				EBC888301A2D1CC7002777DB /* ViewController.m */,
-				EB135E2F1A5C555B001527DF /* PSPDFTextView.h */,
-				EB135E301A5C555B001527DF /* PSPDFTextView.m */,
 				EBC888321A2D1CC7002777DB /* Main.storyboard */,
 				EBC888571A2E23D5002777DB /* MarkdownToolbar.xib */,
 				EBC888351A2D1CC7002777DB /* Images.xcassets */,
@@ -222,7 +243,6 @@
 				EBC888511A2D1E94002777DB /* UITextView+SEMarkdownEditor.h in Headers */,
 				EBC8885A1A2E27C6002777DB /* SEMarkdownEditor.h in Headers */,
 				EBC888141A2D1058002777DB /* SEMarkdownTextChunks.h in Headers */,
-				EBC8884E1A2D1E1B002777DB /* NSString+SERegularExpressions.h in Headers */,
 				EBC888161A2D1058002777DB /* SEMarkdownTextChunks+Transforms.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -234,10 +254,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EBC888011A2D0E6D002777DB /* Build configuration list for PBXNativeTarget "SEMarkdownEditor" */;
 			buildPhases = (
+				41504EE34814A5A4880D4130 /* Check Pods Manifest.lock */,
 				EBC887E61A2D0E6C002777DB /* Sources */,
 				EBC887E71A2D0E6C002777DB /* Frameworks */,
 				EBC887E81A2D0E6C002777DB /* Headers */,
 				EBC887E91A2D0E6C002777DB /* Resources */,
+				BE1590322449C9742D4370B7 /* Copy Pods Resources */,
+				BE0FBA65D838ACD9C151B55C /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -270,9 +293,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EBC888461A2D1CC7002777DB /* Build configuration list for PBXNativeTarget "iOS Demo" */;
 			buildPhases = (
+				F9FF00A55CE8272939B9DC47 /* Check Pods Manifest.lock */,
 				EBC888221A2D1CC7002777DB /* Sources */,
 				EBC888231A2D1CC7002777DB /* Frameworks */,
 				EBC888241A2D1CC7002777DB /* Resources */,
+				992CA0C8F5A456AB25981294 /* Copy Pods Resources */,
+				CF50FDEC8453846EE1E834AB /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -352,13 +378,105 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		41504EE34814A5A4880D4130 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		992CA0C8F5A456AB25981294 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOS Demo/Pods-iOS Demo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BE0FBA65D838ACD9C151B55C /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SEMarkdownEditor/Pods-SEMarkdownEditor-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BE1590322449C9742D4370B7 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SEMarkdownEditor/Pods-SEMarkdownEditor-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CF50FDEC8453846EE1E834AB /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOS Demo/Pods-iOS Demo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F9FF00A55CE8272939B9DC47 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		EBC887E61A2D0E6C002777DB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				EBC888521A2D1E94002777DB /* UITextView+SEMarkdownEditor.m in Sources */,
-				EBC8881B1A2D10A8002777DB /* NSString+SERegularExpressions.m in Sources */,
 				EBC888171A2D1058002777DB /* SEMarkdownTextChunks+Transforms.m in Sources */,
 				EBC888151A2D1058002777DB /* SEMarkdownTextChunks.m in Sources */,
 			);
@@ -379,7 +497,6 @@
 				EBC888311A2D1CC7002777DB /* ViewController.m in Sources */,
 				EBC8882E1A2D1CC7002777DB /* AppDelegate.m in Sources */,
 				EBC8882B1A2D1CC7002777DB /* main.m in Sources */,
-				EB135E311A5C555B001527DF /* PSPDFTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,6 +621,7 @@
 		};
 		EBC888021A2D0E6D002777DB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B8A46AC549280FBAA3926D1D /* Pods-SEMarkdownEditor.debug.xcconfig */;
 			buildSettings = {
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -520,6 +638,7 @@
 		};
 		EBC888031A2D0E6D002777DB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22EF0A53B0F41126336757CC /* Pods-SEMarkdownEditor.release.xcconfig */;
 			buildSettings = {
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -566,6 +685,7 @@
 		};
 		EBC888471A2D1CC7002777DB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C3AD23D9138CB1C66D8DF3D2 /* Pods-iOS Demo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -581,6 +701,7 @@
 		};
 		EBC888481A2D1CC7002777DB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 83BFA72F3FFC98EE5972A941 /* Pods-iOS Demo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "iOS Demo/Info.plist";

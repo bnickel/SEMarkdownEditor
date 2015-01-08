@@ -1,0 +1,13 @@
+PODS:
+  - PSPDFTextView (1.2.0)
+  - SEStringUtilities (0.1.0)
+
+DEPENDENCIES:
+  - PSPDFTextView
+  - SEStringUtilities
+
+SPEC CHECKSUMS:
+  PSPDFTextView: bd966902213eaa97697e9edb0dbb56205f543b5e
+  SEStringUtilities: 6a5be93848383d9099a5fa9f04ed27102bace38b
+
+COCOAPODS: 0.36.0.beta.1

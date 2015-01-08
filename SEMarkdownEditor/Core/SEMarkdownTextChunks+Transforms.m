@@ -7,7 +7,7 @@
 //
 
 #import "SEMarkdownTextChunks+Transforms.h"
-#import "NSString+SERegularExpressions.h"
+#import <SEStringUtilities/SEStringUtilities.h>
 
 const NSInteger SEMarkdownLineLength = 72;
 

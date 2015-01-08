@@ -1,0 +1,6 @@
+framework module PSPDFTextView {
+  umbrella header "Pods-iOS Demo-PSPDFTextView-umbrella.h"
+
+  export *
+  module * { export * }
+}

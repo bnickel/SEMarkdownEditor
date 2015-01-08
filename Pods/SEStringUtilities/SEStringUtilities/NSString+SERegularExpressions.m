@@ -38,7 +38,10 @@
 {
     NSParameterAssert((block && !template) || (template && !block));
     
-    NSRegularExpression *expression = [NSRegularExpression regularExpressionWithPattern:pattern options:options error:NULL];
+    NSError *error = nil;
+    NSRegularExpression *expression = [NSRegularExpression regularExpressionWithPattern:pattern options:options error:&error];
+    NSAssert(expression != nil, @"Could not parse %@. Error: %@", pattern, error.localizedDescription);
+    
     NSMutableString *mutableString = [self mutableCopy];
     NSInteger occurances = 0;
     
@@ -80,14 +83,18 @@
 
 - (NSString *)SE_firstOccuranceOfPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options
 {
-    NSRegularExpression *expression = [NSRegularExpression regularExpressionWithPattern:pattern options:options error:NULL];
+    NSError *error = nil;
+    NSRegularExpression *expression = [NSRegularExpression regularExpressionWithPattern:pattern options:options error:&error];
+    NSAssert(expression != nil, @"Could not parse %@. Error: %@", pattern, error.localizedDescription);
     NSTextCheckingResult *result = [expression firstMatchInString:self options:0 range:NSMakeRange(0, self.length)];
-    return result.range.location != NSNotFound ? [self substringWithRange:result.range] : nil;
+    return result != nil && result.range.location != NSNotFound ? [self substringWithRange:result.range] : nil;
 }
 
 - (BOOL)SE_matchesPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options
 {
-    NSRegularExpression *expression = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:NULL];
+    NSError *error = nil;
+    NSRegularExpression *expression = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
+    NSAssert(expression != nil, @"Could not parse %@. Error: %@", pattern, error.localizedDescription);
     NSRange range = [expression rangeOfFirstMatchInString:self options:0 range:NSMakeRange(0, self.length)];
     return range.location != NSNotFound;
 }

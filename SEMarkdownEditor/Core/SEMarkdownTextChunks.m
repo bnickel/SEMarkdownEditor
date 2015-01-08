@@ -7,7 +7,7 @@
 //
 
 #import "SEMarkdownTextChunks.h"
-#import "NSString+SERegularExpressions.h"
+#import <SEStringUtilities/SEStringUtilities.h>
 
 @implementation SEMarkdownTextChunks
 
