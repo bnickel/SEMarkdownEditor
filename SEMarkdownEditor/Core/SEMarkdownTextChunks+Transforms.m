@@ -55,7 +55,8 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
                 return @"%20";
             }
             
-            return [match stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            // Passing all legal non-alphanumeric characters preserved by encodeURI.  See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURI
+            return (__bridge_transfer id)CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef)match, CFSTR(";,/?:@&=+$-_.!~*'()#"), NULL, kCFStringEncodingUTF8);
         }];
         
         NSString *title = matches[2];
