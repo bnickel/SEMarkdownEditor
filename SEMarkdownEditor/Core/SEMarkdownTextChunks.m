@@ -24,6 +24,41 @@
     return self;
 }
 
+- (void)setBefore:(NSString *)before
+{
+    if (_before != before) {
+        _before = [before copy] ?: @"";
+    }
+}
+
+- (void)setStartTag:(NSString *)startTag
+{
+    if (_startTag != startTag) {
+        _startTag = [startTag copy] ?: @"";
+    }
+}
+
+- (void)setSelection:(NSString *)selection
+{
+    if (_selection != selection) {
+        _selection = [selection copy] ?: @"";
+    }
+}
+
+- (void)setEndTag:(NSString *)endTag
+{
+    if (_endTag != endTag) {
+        _endTag = [endTag copy] ?: @"";
+    }
+}
+
+- (void)setAfter:(NSString *)after
+{
+    if (_after != after) {
+        _after = [after copy] ?: @"";
+    }
+}
+
 - (id)copyWithZone:(NSZone *)zone
 {
     SEMarkdownTextChunks *chunk = [[SEMarkdownTextChunks alloc] init];

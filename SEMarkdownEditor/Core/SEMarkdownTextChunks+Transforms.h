@@ -88,20 +88,22 @@
  @see addInlineLink:
  @warning This method is not safe for single line documents.  It will insert a reference block at the end of the document.
  */
-- (void)addLink:(NSString *)linkURLAndOptionalTitle;
+- (void)addLink:(nonnull NSString *)linkURLAndOptionalTitle;
 
 /**
  @abstract Adds a reference-style image to the document.
  @see removeLinkOrImage
  @warning This method is not safe for single line documents.  It will insert a reference block at the end of the document.
  */
-- (void)addImage:(NSString *)imageURLAndOptionalTitle;
+- (void)addImage:(nonnull NSString *)imageURLAndOptionalTitle wrapInLink:(BOOL)wrapInLink;
+
+- (void)addImage:(nonnull NSString *)imageURLAndOptionalTitle DEPRECATED_MSG_ATTRIBUTE("Use addImage:wrapInLink:");
 
 /**
  @abstract Adds an inline link to the document, e.g. [link](http://example.com/).
  @see removeLinkOrImage
  @warning This method may not be appropriate for multiline documents.  Multiline document editors generally favor reference-style links.
  **/
-- (void)addInlineLink:(NSString *)linkURLAndOptionalTitle;
+- (void)addInlineLink:(nonnull NSString *)linkURLAndOptionalTitle;
 
 @end

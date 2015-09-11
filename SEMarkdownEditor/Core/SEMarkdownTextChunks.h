@@ -17,43 +17,43 @@
  @abstract Returns an initialized @c SEMarkdownTextChunks representing the string and the selection.
  @discussion Initially the text inside the selection range will be stored in the @c selection with the surrounding text stored in @c before and @c after.
  */
-- (instancetype)initWithText:(NSString *)text selection:(NSRange)selection;
+- (nonnull instancetype)initWithText:(nonnull NSString *)text selection:(NSRange)selection;
 
 /**
  @abstract Returns the string and selected range represented by the current instance.
  @param selectedRange An optional range pointer to be populated with the range of the selection in the returned text.
  @return The string represented by the current instance.
  */
-- (NSString *)textWithSelection:(out NSRangePointer)selectedRange;
+- (nonnull NSString *)textWithSelection:(nullable out NSRangePointer)selectedRange;
 
 /**
  @abstract The text before the selection and the start tag.
  */
-@property (nonatomic) NSString *before;
+@property (nonatomic, copy, null_resettable) NSString *before;
 
 /**
  @abstract The text immediately before selection that relates to the tag.
  @discussion This is generally populated by @c findLeft:andRightTags: but may also be used by transformation inserting text to avoid concatenating in @c before.
  @see findLeft:andRightTags:
  */
-@property (nonatomic) NSString *startTag;
+@property (nonatomic, copy, null_resettable) NSString *startTag;
 
 /**
  @abstract The text representing the selection.  Before any transforms are performed this generally represents the text selected by the user.  Afterwards it represents the text that should be selected when updating the text.
  */
-@property (nonatomic) NSString *selection;
+@property (nonatomic, copy, null_resettable) NSString *selection;
 
 /**
  @abstract The text immediately after selection that relates to the tag.
  @discussion This is generally populated by @c findLeft:andRightTags: but may also be used by transformation inserting text to avoid concatenating in @c after.
  @see findLeft:andRightTags:
  */
-@property (nonatomic) NSString *endTag;
+@property (nonatomic, copy, null_resettable) NSString *endTag;
 
 /**
  @abstract The text after the selection and the end tag.
  */
-@property (nonatomic) NSString *after;
+@property (nonatomic, copy, null_resettable) NSString *after;
 
 /**
  @abstract Trims whitespace from the selection moving it to @c before and @c after or optionally discarding it.
@@ -67,7 +67,7 @@
  @param startExpr The pattern for the start tag, e.g. "\\[" for the start of an inline link.
  @param endExpr The pattern for the end tag, e.g. "\\]\\(.*?\\)" for the end of an inline link.
  */
-- (void)findLeft:(NSString *)startExpr andRightTags:(NSString *)endExpr;
+- (void)findLeft:(nullable NSString *)startExpr andRightTags:(nullable NSString *)endExpr;
 
 /**
  @abstract Adds blank lines before and after the selection or tags to ensure a minimum number of blank lines, optionally removing additional blank lines.
