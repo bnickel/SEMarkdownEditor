@@ -40,10 +40,10 @@
     if (remove) {
         self.selection = [self.selection stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     } else {
-        self.selection = [[self.selection SE_stringByReplacingFirstOccuranceOfPattern:@"^([\\s\r\n]*)" options:0 withBlock:^NSString *(NSArray *matches) {
+        self.selection = [[self.selection SE_stringByReplacingFirstOccuranceOfPattern:@"^([\\s\r\n]*)" options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
             self.before = [self.before stringByAppendingString:matches[0]];
             return @"";
-        }] SE_stringByReplacingFirstOccuranceOfPattern:@"([\\s\r\n]*)\\z" options:0 withBlock:^NSString *(NSArray *matches) {
+        }] SE_stringByReplacingFirstOccuranceOfPattern:@"([\\s\r\n]*)\\z" options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
             self.after = [matches[0] stringByAppendingString:self.after];
             return @"";
         }];
@@ -54,12 +54,12 @@
 {
     if (startExpr) {
         
-        self.before = [self.before SE_stringByReplacingPattern:[startExpr stringByAppendingString:@"$"] options:0 withBlock:^NSString *(NSArray *matches) {
+        self.before = [self.before SE_stringByReplacingPattern:[startExpr stringByAppendingString:@"$"] options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
             self.startTag = [self.startTag stringByAppendingString:matches[0]];
             return @"";
         }];
         
-        self.selection = [self.selection SE_stringByReplacingPattern:[@"^" stringByAppendingString:startExpr] options:0 withBlock:^NSString *(NSArray *matches) {
+        self.selection = [self.selection SE_stringByReplacingPattern:[@"^" stringByAppendingString:startExpr] options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
             self.startTag = [self.startTag stringByAppendingString:matches[0]];
             return @"";
         }];
@@ -67,12 +67,12 @@
     
     if (endExpr) {
         
-        self.selection = [self.selection SE_stringByReplacingPattern:[endExpr stringByAppendingString:@"$"] options:0 withBlock:^NSString *(NSArray *matches) {
+        self.selection = [self.selection SE_stringByReplacingPattern:[endExpr stringByAppendingString:@"$"] options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
             self.endTag = [self.endTag stringByAppendingString:matches[0]];
             return @"";
         }];
         
-        self.after = [self.after SE_stringByReplacingPattern:[@"^" stringByAppendingString:endExpr] options:0 withBlock:^NSString *(NSArray *matches) {
+        self.after = [self.after SE_stringByReplacingPattern:[@"^" stringByAppendingString:endExpr] options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
             self.endTag = [self.endTag stringByAppendingString:matches[0]];
             return @"";
         }];
@@ -84,22 +84,22 @@
     nLinesBefore ++;
     nLinesAfter ++;
     
-    self.selection = [self.selection SE_stringByReplacingFirstOccuranceOfPattern:@"^\n*" options:0 withBlock:^NSString *(NSArray *matches) {
+    self.selection = [self.selection SE_stringByReplacingFirstOccuranceOfPattern:@"^\n*" options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
         self.startTag = [self.startTag stringByAppendingString:matches[0]];
         return @"";
     }];
     
-    self.selection = [self.selection SE_stringByReplacingFirstOccuranceOfPattern:@"\n*\\z" options:0 withBlock:^NSString *(NSArray *matches) {
+    self.selection = [self.selection SE_stringByReplacingFirstOccuranceOfPattern:@"\n*\\z" options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
         self.endTag = [self.endTag stringByAppendingString:matches[0]];
         return @"";
     }];
     
-    self.startTag = [self.startTag SE_stringByReplacingFirstOccuranceOfPattern:@"^\n*" options:0 withBlock:^NSString *(NSArray *matches) {
+    self.startTag = [self.startTag SE_stringByReplacingFirstOccuranceOfPattern:@"^\n*" options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
         self.before = [self.before stringByAppendingString:matches[0]];
         return @"";
     }];
     
-    self.endTag = [self.endTag SE_stringByReplacingFirstOccuranceOfPattern:@"\n*\\z" options:0 withBlock:^NSString *(NSArray *matches) {
+    self.endTag = [self.endTag SE_stringByReplacingFirstOccuranceOfPattern:@"\n*\\z" options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
         self.after = [self.after stringByAppendingString:matches[0]];
         return @"";
     }];
@@ -160,7 +160,7 @@
     
     NSString *pattern = [NSString stringWithFormat:@"(.{1,%ld})( +|$\\n?)", (long)length];
     
-    self.selection = [[self.selection SE_stringByReplacingPattern:pattern options:NSRegularExpressionAnchorsMatchLines withBlock:^NSString *(NSArray *matches) {
+    self.selection = [[self.selection SE_stringByReplacingPattern:pattern options:NSRegularExpressionAnchorsMatchLines withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
         if ([matches[0] SE_matchesPattern:@"^" PREFIXES options:0]) {
             return matches[0];
         }

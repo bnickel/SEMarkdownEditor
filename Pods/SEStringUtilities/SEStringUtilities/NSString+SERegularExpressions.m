@@ -16,7 +16,7 @@
     return [self SE_stringByReplacingPattern:pattern options:options withBlock:nil orTemplate:template limit:NSIntegerMax];
 }
 
-- (NSString *)SE_stringByReplacingPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options withBlock:(NSString *(^)(NSArray *))block
+- (NSString *)SE_stringByReplacingPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options withBlock:(SERegularExpressionReplacementBlock)block
 {
     NSParameterAssert(block != nil);
     return [self SE_stringByReplacingPattern:pattern options:options withBlock:block orTemplate:nil limit:NSIntegerMax];
@@ -28,13 +28,13 @@
     return [self SE_stringByReplacingPattern:pattern options:options withBlock:nil orTemplate:template limit:1];
 }
 
-- (NSString *)SE_stringByReplacingFirstOccuranceOfPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options withBlock:(NSString *(^)(NSArray *))block
+- (NSString *)SE_stringByReplacingFirstOccuranceOfPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options withBlock:(SERegularExpressionReplacementBlock)block
 {
     NSParameterAssert(block != nil);
     return [self SE_stringByReplacingPattern:pattern options:options withBlock:block orTemplate:nil limit:1];
 }
 
-- (NSString *)SE_stringByReplacingPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options withBlock:(NSString *(^)(NSArray *))block orTemplate:(NSString *)template limit:(NSInteger)limit
+- (NSString *)SE_stringByReplacingPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options withBlock:(SERegularExpressionReplacementBlock)block orTemplate:(NSString *)template limit:(NSInteger)limit
 {
     NSParameterAssert((block && !template) || (template && !block));
     
@@ -63,7 +63,7 @@
                 [matches addObject: subrange.location != NSNotFound ? [self substringWithRange:subrange] : @""];
             }
             
-            replacementString = block(matches);
+            replacementString = block(matches, result.range, self);
         }
         
         

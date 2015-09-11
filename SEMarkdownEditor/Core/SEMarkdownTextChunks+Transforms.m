@@ -18,7 +18,7 @@ NS_INLINE NSString *PreventAutomaticSpoiler(NSString *text) {
 
 NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     
-    return [linkDefinition SE_stringByReplacingFirstOccuranceOfPattern:@"^\\s*(.*?)(?:\\s+\"(.+)\")?\\s*\\z" options:0 withBlock:^NSString *(NSArray *matches) {
+    return [linkDefinition SE_stringByReplacingFirstOccuranceOfPattern:@"^\\s*(.*?)(?:\\s+\"(.+)\")?\\s*\\z" options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
         
         __block BOOL inQueryString = NO;
         
@@ -30,7 +30,7 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
         // a strange beast in URLs, but if anything, this causes URLs to be more readable,
         // and we leave it to the browser to make sure that these links are handled without
         // problems.
-        NSString *link = [matches[1] SE_stringByReplacingPattern:@"%(?:[\\da-fA-F]{2})|\\?|\\+|[^\\w\\d-./\\[\\]]" options:0 withBlock:^NSString *(NSArray *matches) {
+        NSString *link = [matches[1] SE_stringByReplacingPattern:@"%(?:[\\da-fA-F]{2})|\\?|\\+|[^\\w\\d-./\\[\\]]" options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
             
             NSString *match = matches[0];
             
@@ -87,7 +87,7 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     // line or is multiline.
     if ((!hasTextBefore && !hasTextAfter) || [self.selection SE_matchesPattern:@"\n" options:0]) {
         
-        self.before = [self.before SE_stringByReplacingFirstOccuranceOfPattern:@"[ ]{4}\\z" options:0 withBlock:^NSString *(NSArray *matches) {
+        self.before = [self.before SE_stringByReplacingFirstOccuranceOfPattern:@"[ ]{4}\\z" options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
             self.selection = [matches[0] stringByAppendingString:self.selection];
             return @"";
         }];
@@ -150,13 +150,13 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
 
 - (void)toggleBlockquote
 {
-    self.selection = [self.selection SE_stringByReplacingFirstOccuranceOfPattern:@"^(\n*)([^\r]+?)(\n*)\\z" options:0 withBlock:^NSString *(NSArray *matches) {
+    self.selection = [self.selection SE_stringByReplacingFirstOccuranceOfPattern:@"^(\n*)([^\r]+?)(\n*)\\z" options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
         self.before = [self.before stringByAppendingString:matches[1]];
         self.after = [matches[3] stringByAppendingString:self.after];
         return matches[2];
     }];
     
-    self.before = [self.before SE_stringByReplacingFirstOccuranceOfPattern:@"(>[ \t*])\\z" options:0 withBlock:^NSString *(NSArray *matches) {
+    self.before = [self.before SE_stringByReplacingFirstOccuranceOfPattern:@"(>[ \t*])\\z" options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
         self.selection = [matches[1] stringByAppendingString:self.selection];
         return @"";
     }];
@@ -242,7 +242,7 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
         self.after = [self.after SE_stringByReplacingFirstOccuranceOfPattern:@"^\n?" options:0 withTemplate:@"\n"];
     }
     
-    self.after = [self.after SE_stringByReplacingFirstOccuranceOfPattern:@"^(((\n|^)(\n[ \t]*)*>(.+\n)*.*)+(\n[ \t]*)*)" options:0 withBlock:^NSString *(NSArray *matches) {
+    self.after = [self.after SE_stringByReplacingFirstOccuranceOfPattern:@"^(((\n|^)(\n[ \t]*)*>(.+\n)*.*)+(\n[ \t]*)*)" options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
         self.endTag = matches[0];
         return @"";
     }];
@@ -269,7 +269,7 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     self.selection = PreventAutomaticSpoiler(self.selection);
     
     if (![self.selection SE_matchesPattern:@"\n" options:0]) {
-        self.selection = [self.selection SE_stringByReplacingFirstOccuranceOfPattern:@"^(> *)" options:0 withBlock:^NSString *(NSArray *matches) {
+        self.selection = [self.selection SE_stringByReplacingFirstOccuranceOfPattern:@"^(> *)" options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
             self.startTag = [self.startTag stringByAppendingString:matches[1]];
             return @"";
         }];
@@ -281,13 +281,13 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     NSString *replacement = useBracket ? @"> " : @"";
     
     if (self.startTag.length > 0) {
-        self.startTag = [self.startTag SE_stringByReplacingFirstOccuranceOfPattern:@"\n((>|\\s)*\n\\z" options:0 withBlock:^NSString *(NSArray *matches) {
+        self.startTag = [self.startTag SE_stringByReplacingFirstOccuranceOfPattern:@"\n((>|\\s)*\n\\z" options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
             return [NSString stringWithFormat:@"\n%@\n", [matches[1] SE_stringByReplacingPattern:@"^[ ]{0,3}>?[ \t]*$" options:NSRegularExpressionAnchorsMatchLines withTemplate:replacement]];
         }];
     }
     
     if (self.endTag.length > 0) {
-        self.endTag = [self.startTag SE_stringByReplacingFirstOccuranceOfPattern:@"^\n((>|\\s)*\n" options:0 withBlock:^NSString *(NSArray *matches) {
+        self.endTag = [self.startTag SE_stringByReplacingFirstOccuranceOfPattern:@"^\n((>|\\s)*\n" options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
             return [NSString stringWithFormat:@"\n%@\n", [matches[1] SE_stringByReplacingPattern:@"^[ ]{0,3}>?[ \t]*$" options:NSRegularExpressionAnchorsMatchLines withTemplate:replacement]];
         }];
     }
@@ -325,7 +325,7 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
         // some arbitrary stuff around.
         __block NSString *whitespace = @"";
         self.after = [self.after SE_stringByReplacingFirstOccuranceOfPattern:@"^[*_]*" options:0 withTemplate:@""];
-        self.before = [self.before SE_stringByReplacingFirstOccuranceOfPattern:@"(\\s?)\\z" options:0 withBlock:^NSString *(NSArray *matches) {
+        self.before = [self.before SE_stringByReplacingFirstOccuranceOfPattern:@"(\\s?)\\z" options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
             whitespace = matches[0];
             return @"";
         }];
@@ -496,9 +496,9 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     //    of regex, inner is always a proper substring of wholeMatch, and
     // b) more than one level of nesting is neither supported by the regex
     //    nor making a lot of sense (the only use case for nesting is a linked image)
-    NSString *(^getLink)(NSArray *);
-    __weak __block typeof(getLink) weakGetLink;
-    getLink = ^NSString *(NSArray *matches) {
+    SERegularExpressionReplacementBlock getLink;
+    SERegularExpressionReplacementBlock __weak __block weakGetLink;
+    getLink = ^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
         
         NSString *before = matches[1];
         NSString *inner = [matches[2] SE_stringByReplacingPattern:pattern options:0 withBlock:weakGetLink];
@@ -544,7 +544,7 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
 
 - (NSString *)stripLinkDefinitions:(NSMutableDictionary *)linkDefinitions fromString:(NSString *)string
 {
-    return [string SE_stringByReplacingPattern:@"^[ ]{0,3}\\[(\\d+)\\]:[ \t]*\n?[ \t]*<?(\\S+?)>?[ \t]*\n?[ \t]*(?:(\n*)[\"(](.+?)[\")][ \t]*)?(?:\n+|$)" options:NSRegularExpressionAnchorsMatchLines withBlock:^NSString *(NSArray *matches) {
+    return [string SE_stringByReplacingPattern:@"^[ ]{0,3}\\[(\\d+)\\]:[ \t]*\n?[ \t]*<?(\\S+?)>?[ \t]*\n?[ \t]*(?:(\n*)[\"(](.+?)[\")][ \t]*)?(?:\n+|$)" options:NSRegularExpressionAnchorsMatchLines withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
         NSString *linkId = matches[1];
         NSString *newLines = matches[3];
         NSString *title = matches[4];
@@ -659,7 +659,7 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     __block NSInteger num = 1;
     
     // Get the item prefix - e.g. " 1. " for a numbered list, " - " for a bulleted list.
-    NSString *(^getItemPrefix)(id) = ^NSString *(__unused id _){
+    SERegularExpressionReplacementBlock getItemPrefix = ^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
         if (isNumberedList) {
             return [NSString stringWithFormat:@" %ld. ", (long)num++];
         } else {
@@ -696,7 +696,7 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
         
         // Have to renumber the bullet points if this is a numbered list.
         if (hasDigits) {
-            self.after = [self.after SE_stringByReplacingFirstOccuranceOfPattern:nextItemPattern options:0 withBlock:^NSString *(NSArray *matches) {
+            self.after = [self.after SE_stringByReplacingFirstOccuranceOfPattern:nextItemPattern options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
                 return getPrefixedItem(matches[0]);
             }];
         }
@@ -708,10 +708,10 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     
     __block NSInteger nLinesUp = 1;
     
-    self.before = [self.before SE_stringByReplacingFirstOccuranceOfPattern:previousItemPattern options:0 withBlock:^NSString *(NSArray *matches) {
+    self.before = [self.before SE_stringByReplacingFirstOccuranceOfPattern:previousItemPattern options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
         
         // This was the easiest way to do this.
-        [matches[0] SE_stringByReplacingFirstOccuranceOfPattern:@"^\\s*([*+-])" options:0 withBlock:^NSString *(NSArray *matches) {
+        [matches[0] SE_stringByReplacingFirstOccuranceOfPattern:@"^\\s*([*+-])" options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
             bullet = matches[1];
             return @"";
         }];
@@ -724,11 +724,11 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
         self.selection = NSLocalizedString(@"List item", nil);
     }
     
-    NSString *prefix = getItemPrefix(nil);
+    NSString *prefix = getItemPrefix(@[@""], NSMakeRange(0, 0), @"");
     
     __block NSInteger nLinesDown = 1;
     
-    self.after = [self.after SE_stringByReplacingFirstOccuranceOfPattern:nextItemPattern options:0 withBlock:^NSString *(NSArray *matches) {
+    self.after = [self.after SE_stringByReplacingFirstOccuranceOfPattern:nextItemPattern options:0 withBlock:^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
         nLinesDown = [matches[0] SE_matchesPattern:@"[^\n]\n\n[^\n]" options:0] ? 1 : 0;
         return getPrefixedItem(matches[0]);
     }];

@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
+typedef NSString * _Nonnull (^SERegularExpressionReplacementBlock)(NSArray<NSString *> * matches, NSRange range, NSString * string);
+
 @interface NSString (SERegularExpressions)
 
 /**
@@ -30,7 +34,7 @@
  @return A string with matching regular expressions replaced by the values returned by the block.
  @see SE_stringByReplacingFirstOccuranceOfPattern:options:withTemplate:
  */
-- (NSString *)SE_stringByReplacingPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options withBlock:(NSString *(^)(NSArray *matches))block;
+- (NSString *)SE_stringByReplacingPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options withBlock:(SERegularExpressionReplacementBlock)block;
 
 /**
  @abstract Returns a new string with the first matching substring replaced with the template string.
@@ -50,7 +54,7 @@
  @return A string with matching regular expressions replaced by the values returned by the block.
  @see SE_stringByReplacingPattern:options:withBlock:
  */
-- (NSString *)SE_stringByReplacingFirstOccuranceOfPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options withBlock:(NSString *(^)(NSArray *matches))block;
+- (NSString *)SE_stringByReplacingFirstOccuranceOfPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options withBlock:(SERegularExpressionReplacementBlock)block;
 
 /**
  @abstract Returns the first substring matching the pattern or nil if no matches were found.
@@ -58,7 +62,7 @@
  @param pattern The regular expression pattern to compile.
  @param options The matching options to use when creating the regular expression.
  */
-- (NSString *)SE_firstOccuranceOfPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options;
+- (nullable NSString *)SE_firstOccuranceOfPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options;
 
 /**
  @abstract Returns @c YES if the string matches the pattern with the specified options.
@@ -69,3 +73,5 @@
 - (BOOL)SE_matchesPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options;
 
 @end
+
+NS_ASSUME_NONNULL_END

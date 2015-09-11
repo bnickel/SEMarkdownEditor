@@ -8,7 +8,7 @@
 
 #import "NSAttributedString+SETokenReplacement.h"
 
-static void SEEnumerateTokenReplacements(NSString *originalString, NSDictionary *replacements, void(^block)(NSRange range, id replacement)) {
+static void SEEnumerateTokenReplacements(NSString *originalString, NSDictionary<NSString *, id> *replacements, void(^block)(NSRange range, id replacement)) {
     
     originalString = [originalString copy];
     
@@ -36,7 +36,7 @@ static void SEEnumerateTokenReplacements(NSString *originalString, NSDictionary 
 
 @implementation NSMutableAttributedString (SETokenReplacement)
 
-- (void)SE_replaceTokensWithValues:(NSDictionary *)replacements
+- (void)SE_replaceTokensWithValues:(NSDictionary<NSString *,id> *)replacements
 {
     SEEnumerateTokenReplacements(self.string, replacements, ^(NSRange range, id replacement) {
         if ([replacement isKindOfClass:[NSAttributedString class]]) {
@@ -51,7 +51,7 @@ static void SEEnumerateTokenReplacements(NSString *originalString, NSDictionary 
 
 @implementation NSAttributedString (SETokenReplacement)
 
-- (NSAttributedString *)SE_attributedStringByReplacingTokensWithValues:(NSDictionary *)replacements
+- (NSAttributedString *)SE_attributedStringByReplacingTokensWithValues:(NSDictionary<NSString *,id> *)replacements
 {
     NSMutableAttributedString *mutableString = [self mutableCopy];
     [mutableString SE_replaceTokensWithValues:replacements];
@@ -62,7 +62,7 @@ static void SEEnumerateTokenReplacements(NSString *originalString, NSDictionary 
 
 @implementation NSMutableString (SETokenReplacement)
 
-- (void)SE_replaceTokensWithValues:(NSDictionary *)replacements
+- (void)SE_replaceTokensWithValues:(NSDictionary<NSString *,id> *)replacements
 {
     SEEnumerateTokenReplacements(self, replacements, ^(NSRange range, id replacement) {
         [self replaceCharactersInRange:range withString:[replacement description]];
@@ -73,14 +73,14 @@ static void SEEnumerateTokenReplacements(NSString *originalString, NSDictionary 
 
 @implementation NSString (SETokenReplacement)
 
-- (NSString *)SE_stringByReplacingTokensWithValues:(NSDictionary *)replacements
+- (NSString *)SE_stringByReplacingTokensWithValues:(NSDictionary<NSString *,id> *)replacements
 {
     NSMutableString *mutableString = [self mutableCopy];
     [mutableString SE_replaceTokensWithValues:replacements];
     return [mutableString copy];
 }
 
-- (NSAttributedString *)SE_attributedStringByReplacingTokensWithValues:(NSDictionary *)replacements
+- (NSAttributedString *)SE_attributedStringByReplacingTokensWithValues:(NSDictionary<NSString *,id> *)replacements
 {
     return [[[NSAttributedString alloc] initWithString:self] SE_attributedStringByReplacingTokensWithValues:replacements];
 }

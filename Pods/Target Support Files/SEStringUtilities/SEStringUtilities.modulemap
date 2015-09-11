@@ -1,5 +1,5 @@
 framework module SEStringUtilities {
-  umbrella header "Pods-SEMarkdownEditor-SEStringUtilities-umbrella.h"
+  umbrella header "SEStringUtilities-umbrella.h"
 
   export *
   module * { export * }
