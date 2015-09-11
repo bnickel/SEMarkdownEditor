@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (strong, nonatomic) IBOutlet UIView *markdownToolbar;
 @property (nonatomic, assign) CGFloat keyboardInset;
+@property (nonatomic, assign) BOOL isLinkAnImage;
 @end
 
 @implementation ViewController
@@ -85,7 +86,28 @@
     
         [self.textView resignFirstResponder];
         
+        self.isLinkAnImage = NO;
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Insert Link", nil) message:@"http://example.com/ \"optional title\"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"OK", nil), nil];
+        alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+        [alertView textFieldAtIndex:0].keyboardType = UIKeyboardTypeURL;
+        [alertView show];
+    }
+}
+
+- (IBAction)toggleImage:(id)sender
+{
+    SEMarkdownTextChunks *chunks = [self.textView SE_textChunksFromSelection];
+    
+    if ([chunks removeLinkOrImage]) {
+        
+        [self.textView SE_updateWithTextChunks:chunks actionName:NSLocalizedString(@"Remove Link", nil)];
+        
+    } else {
+        
+        [self.textView resignFirstResponder];
+        
+        self.isLinkAnImage = YES;
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Insert Image", nil) message:@"http://example.com/ \"optional title\"" delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"OK", nil), nil];
         alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
         [alertView textFieldAtIndex:0].keyboardType = UIKeyboardTypeURL;
         [alertView show];
@@ -96,7 +118,12 @@
 {
     if (buttonIndex != alertView.cancelButtonIndex) {
         SEMarkdownTextChunks *chunks = [self.textView SE_textChunksFromSelection];
-        [chunks addLink:[alertView textFieldAtIndex:0].text];
+        NSString *link = [alertView textFieldAtIndex:0].text;
+        if (self.isLinkAnImage) {
+            [chunks addImage:link wrapInLink:YES];
+        } else {
+            [chunks addLink:link];
+        }
         [self.textView SE_updateWithTextChunks:chunks actionName:NSLocalizedString(@"Link", nil)];
     }
     
