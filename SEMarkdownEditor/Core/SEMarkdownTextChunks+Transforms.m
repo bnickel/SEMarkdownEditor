@@ -498,9 +498,19 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     
     NSString *pattern = @"(\\[)((?:\\[[^\\]]*\\]|[^\\[\\]])*)(\\][ ]?(?:\n[ ]*)?\\[)(\\d+)(\\])";
     
-    void (^addDefinitionNumber)(NSString *) = ^(NSString *definition) {
+    NSMutableDictionary<NSString *, NSNumber *> *addedDefinitionsByURL = [NSMutableDictionary dictionary];
+    NSInteger(^addOrReuseDefinitionNumber)(NSString *) = ^NSInteger(NSString *definition) {
+        NSString *stripped = [definition SE_stringByReplacingFirstOccuranceOfPattern:@"^[ ]{0,3}\\[(\\d+)\\]:" options:0 withTemplate:@""];
+        NSNumber *existingReference = addedDefinitionsByURL[stripped];
+        if (existingReference) {
+            return [existingReference integerValue];
+        }
+
         referenceNumber ++;
-        [definitions appendFormat:@"\n%@", [definition SE_stringByReplacingFirstOccuranceOfPattern:@"^[ ]{0,3}\\[(\\d+)\\]:" options:0 withTemplate:[NSString stringWithFormat:@"  [%ld]:", (long)referenceNumber]]];
+        [definitions appendFormat:@"\n  [%ld]:", (long)referenceNumber];
+        [definitions appendString:stripped];
+        addedDefinitionsByURL[stripped] = @(referenceNumber);
+        return referenceNumber;
     };
     
     // note that
@@ -519,8 +529,8 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
         NSString *end = matches[5];
         
         if (definitionsToAdd[linkId]) {
-            addDefinitionNumber(definitionsToAdd[linkId]);
-            return [NSString stringWithFormat:@"%@%@%@%ld%@", before, inner, afterInner, (long)referenceNumber, end];
+            NSInteger normalizedReferenceNumber = addOrReuseDefinitionNumber(definitionsToAdd[linkId]);
+            return [NSString stringWithFormat:@"%@%@%@%ld%@", before, inner, afterInner, (long)normalizedReferenceNumber, end];
         }
         
         return matches[0];
@@ -529,13 +539,12 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     
     self.before = [self.before SE_stringByReplacingPattern:pattern options:0 withBlock:getLink];
     
+    NSInteger referenceOut = NSNotFound;
     if (linkDefinition) {
-        addDefinitionNumber(linkDefinition);
+        referenceOut = addOrReuseDefinitionNumber(linkDefinition);
     } else {
         self.selection = [self.selection SE_stringByReplacingPattern:pattern options:0 withBlock:getLink];
     }
-    
-    NSInteger referenceOut = referenceNumber;
     
     self.after = [self.after SE_stringByReplacingPattern:pattern options:0 withBlock:getLink];
     
