@@ -389,12 +389,17 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
 
 - (void)addLink:(NSString *)linkURLAndOptionalTitle
 {
-    [self addLink:linkURLAndOptionalTitle isImage:NO];
+    [self addLink:linkURLAndOptionalTitle isImage:NO wrapImageInLink:NO];
+}
+
+- (void)addImage:(NSString *)imageURLAndOptionalTitle wrapInLink:(BOOL)wrapInLink;
+{
+    [self addLink:imageURLAndOptionalTitle isImage:YES wrapImageInLink:wrapInLink];
 }
 
 - (void)addImage:(NSString *)imageURLAndOptionalTitle
 {
-    [self addLink:imageURLAndOptionalTitle isImage:YES];
+    [self addImage:imageURLAndOptionalTitle wrapInLink:NO];
 }
 
 - (void)addInlineLink:(NSString *)linkText
@@ -414,7 +419,7 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     }
 }
 
-- (void)addLink:(NSString *)linkText isImage:(BOOL)isImage
+- (void)addLink:(NSString *)linkText isImage:(BOOL)isImage wrapImageInLink:(BOOL)wrapImageInLink
 {
     if (linkText.length == 0) {
         return;
@@ -427,8 +432,15 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     
     NSInteger linkNumber = [self addLinkDefinition:linkDefinition];
     
-    self.startTag = isImage ? @"![" : @"[";
-    self.endTag = [NSString stringWithFormat:@"][%ld]", (long)linkNumber];
+    if (!isImage || wrapImageInLink) {
+        self.startTag = @"[";
+        self.endTag = [NSString stringWithFormat:@"][%ld]", (long)linkNumber];
+    }
+    
+    if (isImage) {
+        self.startTag = [self.startTag stringByAppendingString:@"!["];
+        self.endTag = [[NSString stringWithFormat:@"][%ld]", (long)linkNumber] stringByAppendingString:self.endTag];
+    }
     
     if (self.selection.length == 0) {
         self.selection = isImage ? NSLocalizedString(@"enter image description here", nil) : NSLocalizedString(@"enter link description here", nil);
