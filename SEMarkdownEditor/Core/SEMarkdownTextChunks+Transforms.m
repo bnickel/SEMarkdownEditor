@@ -486,6 +486,66 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     
     NSString *pattern = @"(\\[)((?:\\[[^\\]]*\\]|[^\\[\\]])*)(\\][ ]?(?:\n[ ]*)?\\[)(\\d+)(\\])";
     
+    // The above regex, used to update [foo][13] references after renumbering,
+    // is much too liberal; it can catch things that are not actually parsed
+    // as references (notably: code). It's impossible to know which matches are
+    // real references without performing a markdown conversion, so that's what
+    // we do. All matches are replaced with a unique reference number, which is
+    // given a unique link. The uniquifier in both cases is the character offset
+    // of the match inside the source string. The modified version is then sent
+    // through the Markdown renderer. Because link reference are stripped during
+    // rendering, the unique link is present in the rendered version if and only
+    // if the match at its offset was in fact rendered as a link or image.
+    NSString *complete = [NSString stringWithFormat:@"%@%@%@", self.before, self.selection, self.after];
+    NSString *rendered = [self.converter makeHTML:complete];
+    NSString *testlink = @"http://this-is-a-real-link.biz/";
+    
+    // If our fake link appears in the rendered version *before* we have added it,
+    // this probably means you're a Meta Stack Exchange user who is deliberately
+    // trying to break this feature. You can still break this workaround if you
+    // attach a plugin to the converter that sometimes (!) inserts this link. In
+    // that case, consider yourself unsupported.
+    while ([rendered rangeOfString:testlink].location != NSNotFound) {
+        testlink = [testlink stringByAppendingString:@"nicetry/"];
+    }
+    
+    NSMutableString *fakedefs = [NSMutableString stringWithString:@"\n\n"];
+    
+    // the regex is tested on the (up to) three chunks separately, and on substrings,
+    // so in order to have the correct offsets to check against okayToModify(), we
+    // have to keep track of how many characters are in the original source before
+    // the substring that we're looking at. Note that doLinkOrImage aligns the selection
+    // on potential brackets, so there should be no major breakage from the chunk
+    // separation.
+    NSUInteger __block skippedCharacters = 0;
+    
+    SERegularExpressionReplacementBlock uniquify;
+    SERegularExpressionReplacementBlock __weak __block weakUniquify;
+    uniquify = ^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
+        NSString *before = matches[1];
+        NSString *afterInner = matches[3];
+        NSString *end = matches[5];
+        
+        skippedCharacters += range.location;
+        [fakedefs appendFormat:@" [%ld]: %@%ld/unicorn\n", (long)skippedCharacters, testlink, (long)skippedCharacters];
+        skippedCharacters += before.length;
+        NSString *inner = [matches[2] SE_stringByReplacingPattern:pattern options:0 withBlock:weakUniquify];
+        skippedCharacters -= before.length;
+        NSString *result = [NSString stringWithFormat:@"%@%@%@%ld%@", before, inner, afterInner, skippedCharacters, end];
+        skippedCharacters -= range.location;
+        return result;
+    };
+    weakUniquify = uniquify;
+    
+    NSString *uniquified = [complete SE_stringByReplacingPattern:pattern options:0 withBlock:uniquify];
+    
+    rendered = [self.converter makeHTML:[uniquified stringByAppendingString:fakedefs]];
+    
+    BOOL(^okayToModify)(NSUInteger) = ^BOOL(NSUInteger offset) {
+        NSString *link = [NSString stringWithFormat:@"%@%ld/unicorn", testlink, (long)offset];
+        return [rendered rangeOfString:link].location != NSNotFound;
+    };
+    
     void (^addDefinitionNumber)(NSString *) = ^(NSString *definition) {
         referenceNumber ++;
         [definitions appendFormat:@"\n%@", [definition SE_stringByReplacingFirstOccuranceOfPattern:@"^[ ]{0,3}\\[(\\d+)\\]:" options:0 withTemplate:[NSString stringWithFormat:@"  [%ld]:", (long)referenceNumber]]];
@@ -499,12 +559,18 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     SERegularExpressionReplacementBlock getLink;
     SERegularExpressionReplacementBlock __weak __block weakGetLink;
     getLink = ^NSString * _Nonnull(NSArray<NSString *> * _Nonnull matches, NSRange range, NSString * _Nonnull string) {
-        
         NSString *before = matches[1];
-        NSString *inner = [matches[2] SE_stringByReplacingPattern:pattern options:0 withBlock:weakGetLink];
         NSString *afterInner = matches[3];
         NSString *linkId = matches[4];
         NSString *end = matches[5];
+        
+        if (!okayToModify(skippedCharacters + range.location)) {
+            return matches[0];
+        }
+        
+        skippedCharacters += range.location + before.length;
+        NSString *inner = [matches[2] SE_stringByReplacingPattern:pattern options:0 withBlock:weakGetLink];
+        skippedCharacters -= range.location + before.length;
         
         if (definitionsToAdd[linkId]) {
             addDefinitionNumber(definitionsToAdd[linkId]);
@@ -515,13 +581,18 @@ NS_INLINE NSString *ProperlyEncoded(NSString *linkDefinition) {
     };
     weakGetLink = getLink;
     
+    const NSUInteger beforeLength = self.before.length;
     self.before = [self.before SE_stringByReplacingPattern:pattern options:0 withBlock:getLink];
+    skippedCharacters += beforeLength;
     
+    const NSUInteger selectionLength = self.selection.length;
     if (linkDefinition) {
         addDefinitionNumber(linkDefinition);
     } else {
         self.selection = [self.selection SE_stringByReplacingPattern:pattern options:0 withBlock:getLink];
     }
+    
+    skippedCharacters += selectionLength;
     
     NSInteger referenceOut = referenceNumber;
     
