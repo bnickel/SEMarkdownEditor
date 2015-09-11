@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "SEMarkdownEditor"
-  s.version      = "0.3.0"
+  s.version      = "0.4.0"
   s.summary      = "Text transformation functions for implementing a markdown toolbar in an iOS app."
 
   s.homepage     = "https://github.com/bnickel/SEMarkdownEditor"
